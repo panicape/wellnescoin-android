@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Login" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@android:drawable/ic_menu_compass"
+            android:title="@string/menu_gallery" android:visible="false"/>
+        <item
+            android:id="@android:drawable/ic_menu_compass"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_slideshow" android:visible="false" />
+        <item
+            android:id="@+id/nav_marketplace"
+            android:icon="@android:drawable/ic_menu_compass"
+            android:title="@string/menu_marketplace" android:visible="false" />
+        <item
+            android:id="@+id/nav_login_main"
+            android:icon="@android:drawable/ic_menu_compass"
+            android:title="Area usuario" android:visible="false" />
+
+
+    </group>
+</menu>

@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">WellfarCoin</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">WellfarCoin</string>
+    <string name="nav_header_subtitle">Pausas activas y sus beneficios</string>
+    <string name="nav_header_desc">WellfarCoin logo</string>
+    <string name="action_settings">Configuración</string>
+    <string name="pausas_title">Pausas Realizadas</string>
+
+    <string name="menu_home">Inicio</string>
+    <string name="menu_gallery">Perfil</string>
+    <string name="menu_slideshow">Wallet</string>
+    <string name="menu_marketplace">Marketplace</string>
+    <string name="exit">Salir</string>
+    <string name="profile_title">Perfil</string>
+    <string name="prof_name">Nombre</string>
+    <string name="prof_email">E-mail</string>
+    <string name="balance">Balance</string>
+    <string name="steps">Pasos</string>
+    <string name="walk_title">Caminar</string>
+    <string name="start">Iniciar</string>
+    <string name="walk_intro">Para iniciar, dar clic a iniciar</string>
+    <string name="total_distance">distancia recorrida</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Iniciar sesion</string>
+    <string name="action_sign_in_short">Iniciar sesion</string>
+    <string name="welcome">"Bienvenido/a!"</string>
+    <string name="invalid_username">No es un usuario valido</string>
+    <string name="invalid_password">La contraseña no puede estar vacía</string>
+    <string name="login_failed">"Error en el inicio de sesion"</string>
+    <string name="username">Usuario</string>
+    <string name="imgPausaDesc">Related to a pausa</string>
+    <string name="txtPausaDesc">Related to a pausa</string>
+</resources>
