@@ -3,21 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/nav_login">
 
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.panicape.wellnesscoin.ui.login.LoginFragment"
+        android:label="Iniciar sesion"
+        tools:layout="@layout/fragment_login" >
+<!--        <action-->
+<!--            android:id="@+id/action_nav_login_to_login_home_frag"-->
+<!--            app:destination="@id/login_home_frag"-->
+<!--            app:popUpTo="@+id/login_home_frag" />-->
+    </fragment>
     <fragment
         android:id="@+id/nav_home"
         android:name="com.panicape.wellnesscoin.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/nav_login"
-        android:name="com.panicape.wellnesscoin.ui.login.LoginFragment"
-        android:label="Iniciar sesion"
-        tools:layout="@layout/fragment_login" />
+
+
     <fragment
         android:id="@+id/login_home_frag"
-        android:name="com.panicape.wellnesscoin.LoginMainFragment"
+        android:name="com.panicape.wellnesscoin.ui.LoginMainFragment"
         android:label="Area de usuario"
         tools:layout="@layout/fragment_login_main" >
         <action
@@ -28,7 +35,7 @@
             app:destination="@id/nav_gallery" />
         <action
             android:id="@+id/action_nav_login_home_to_nav_slideshow"
-            app:destination="@id/nav_slideshow"
+            app:destination="@id/nav_wallet"
             />
     </fragment>
 
@@ -43,10 +50,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.panicape.wellnesscoin.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_wallet"
+        android:name="com.panicape.wellnesscoin.ui.wallet.WalletFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" >
+        tools:layout="@layout/fragment_wallet" >
         <action
             android:id="@+id/action_nav_slideshow_to_nav_login_home"
             app:destination="@id/login_home_frag" />

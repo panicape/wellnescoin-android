@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WellfarCoin</string>
+    <string name="app_name">WellfareCoin</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">WellfarCoin</string>
@@ -7,6 +7,8 @@
     <string name="nav_header_desc">WellfarCoin logo</string>
     <string name="action_settings">Configuración</string>
     <string name="pausas_title">Pausas Realizadas</string>
+
+    <string name="alarm_notification">WellfareCoin - Notificación</string>
 
     <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Perfil</string>
@@ -23,7 +25,7 @@
     <string name="walk_intro">Para iniciar, dar clic a iniciar</string>
     <string name="total_distance">distancia recorrida</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">Email UNAB</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Iniciar sesion</string>
     <string name="action_sign_in_short">Iniciar sesion</string>
@@ -34,4 +36,34 @@
     <string name="username">Usuario</string>
     <string name="imgPausaDesc">Related to a pausa</string>
     <string name="txtPausaDesc">Related to a pausa</string>
+    <string name="info_title">Ayuda - Pausas Activas</string>
+    <string name="large_text">
+        Infografía que explica que es una pausa activa.
+        Una pausa activa es un pequeño descanso de las actividades que se tienen que realizar para
+        evitar problemas de salud derivados del sedentarismo que imlica el lugar de trabajo
+    </string>
+    <string name="save">Guardar</string>
+    <string name="pausa_video_title">Ejercicio de Video</string>
+    <string name="update">Actualizar</string>
+    <string name="dependency">dependencia</string>
+    <string name="user_type">Tipo de usuario</string>
+    <string name="program">Programa</string>
+    <string name="signup_date">Fecha de ingreso</string>
+    <string name="user_photo">Foto del usuario</string>
+    <string name="title_pausa_validation">Validar Pausa</string>
+    <string name="information">Información</string>
+    <string name="web">Web</string>
+    <string name="get_in">Ingresar</string>
+
+    <string name="pausa_help_1">
+        1) Conocer el estado del contador de tiempo para notificar el momento de realizar la pausa activa
+    </string>
+    <string name="pausa_help_2">
+        2) activar el contador de tiempo para notificar el momento de realizar la pausa activa (aparece cada dos horas de haberse activado si no tiene otro tipo de interrupción)
+    </string>
+    <string name="pausa_help_3">
+        3 ) desactivar el contador para iniciar el nuevo conteo de tiempo. Al realizar una pausa se vuelve a iniciar automáticamente
+    </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

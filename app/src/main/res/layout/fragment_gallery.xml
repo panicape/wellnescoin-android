@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
-        android:text="{e-mail}"
+        android:text="@string/prof_email"
         app:layout_constraintStart_toEndOf="@+id/profEmailLbl"
         app:layout_constraintTop_toBottomOf="@+id/profNameValue" />
 
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:text="{name}"
+        android:text="@string/prof_name"
         app:layout_constraintStart_toEndOf="@+id/profNameLbl"
         app:layout_constraintTop_toBottomOf="@+id/prof_username" />
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
         android:layout_marginTop="29dp"
-        android:text="{username}"
+        android:text="@string/username"
         app:layout_constraintStart_toEndOf="@+id/prof_username"
         app:layout_constraintTop_toBottomOf="@+id/profileTitle" />
 
@@ -84,29 +84,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/user_photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileTitle"
-        tools:src="@tools:sample/avatars" />
+        tools:ignore="ImageContrastCheck"
+        tools:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/jobTitleLbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="192dp"
-        android:layout_marginTop="32dp"
-        android:text="Cargo"
+        android:layout_marginTop="12dp"
+        android:text="@string/program"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/dependLbl" />
 
     <TextView
-        android:id="@+id/jobtitleValue"
+        android:id="@+id/programTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="{cargo}"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/program"
         app:layout_constraintStart_toEndOf="@+id/jobTitleLbl"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/dependLbl" />
 
     <Button
         android:id="@+id/photoUpdateBtn"
@@ -114,8 +116,68 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
-        android:text="Actualizar"
+        android:text="@string/update"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/dependLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/dependency"
+        app:layout_constraintStart_toEndOf="@+id/photoUpdateBtn"
+        app:layout_constraintTop_toBottomOf="@+id/profEmailLbl" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/user_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jobTitleLbl" />
+
+    <TextView
+        android:id="@+id/datesignupTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/signup_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/userTypeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/user_type"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/jobTitleLbl" />
+
+    <TextView
+        android:id="@+id/registerDateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/signup_date"
+        app:layout_constraintStart_toEndOf="@+id/datesignupTV"
+        app:layout_constraintTop_toBottomOf="@+id/userTypeTV" />
+
+    <TextView
+        android:id="@+id/profDependValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="21dp"
+        android:text="@string/dependency"
+        app:layout_constraintStart_toEndOf="@+id/dependLbl"
+        app:layout_constraintTop_toBottomOf="@+id/profEmailVal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
