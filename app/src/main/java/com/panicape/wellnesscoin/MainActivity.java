@@ -48,15 +48,14 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_gallery,
                 R.id.nav_home,
-                R.id.nav_slideshow,
+                R.id.nav_wallet,
                 R.id.nav_marketplace,
                 R.id.nav_login,
                 R.id.nav_login_main
-        )
-                .setOpenableLayout(drawer)
-                .build();
+        ).setOpenableLayout(drawer).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
@@ -71,6 +70,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem loginItem = menu.findItem(R.id.action_login);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem logoffItem = menu.findItem(R.id.action_logoff);
+
+        if(FirebaseAuth.getInstance().getCurrentUser()==null) {
+            loginItem.setVisible(true);
+            profileItem.setVisible(false);
+            logoffItem.setVisible(false);
+        } else {
+            loginItem.setVisible(false);
+            profileItem.setVisible(true);
+            logoffItem.setVisible(true);
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
@@ -79,22 +97,31 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Toast.makeText(this, "No esta implementado todavia",
                         Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.action_validar_pausas:
-                Intent intent = new Intent(this, ValidatePausaActivity.class);
-                startActivity(intent);
+//            case R.id.action_validar_pausas:
+//                Intent intent = new Intent(this, ValidatePausaActivity.class);
+//                startActivity(intent);
+//                return true;
+            case  R.id.action_info:
+                Intent infoIntent = new Intent(this, HelpMainActivity.class);
+                startActivity(infoIntent);
+                return true;
+            case R.id.action_web:
+                Intent webIntent = new Intent(this, WebActivity.class);
+                startActivity(webIntent);
                 return true;
             case R.id.action_exit:
+                FirebaseAuth.getInstance().signOut();
                 finish();
                 return true;
             case R.id.action_profile:
-
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
                     navController.navigate(R.id.nav_gallery);
                 } else {
                     Toast.makeText(this, "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);

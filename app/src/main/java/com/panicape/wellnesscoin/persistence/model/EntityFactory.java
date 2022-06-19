@@ -1,9 +1,12 @@
 package com.panicape.wellnesscoin.persistence.model;
 
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author panicape
@@ -11,7 +14,7 @@ import java.util.HashMap;
  */
 public class EntityFactory {
 
-    public HashMap<String, String> populatePausaTypeToHashmap(PausaTypeDTO pausaType) {
+    public static HashMap<String, String> populatePausaTypeToHashmap(PausaTypeDTO pausaType) {
         HashMap<String, String> result = new HashMap<String, String>();
 
         return result;
@@ -23,7 +26,7 @@ public class EntityFactory {
      * @param user
      * @return
      */
-    public HashMap<String, String> populateUserToHashMap(UserDto user) {
+    public static HashMap<String, String> populateUserToHashMap(UserDto user) {
         HashMap<String, String> result = new HashMap<String, String>();
         result.put("username", user.getUsername());
         result.put("mail", user.getMail());
@@ -39,10 +42,11 @@ public class EntityFactory {
       * @param input
      * @return
      */
-    public UserDto populateHashMapToUser(HashMap<String, String> input) {
-        UserDto user = new UserDto(input.get("username"), input.get("name"),
-                input.get("mail"), input.get("phone"));
-
+    public static UserDto populateHashMapToUser(Map<String, Object> input) {
+        UserDto user = new UserDto(input.get("username").toString(), input.get("email").toString(),
+                input.get("userType").toString(), input.get("name").toString(),
+                input.get("email").toString(), input.get("phone").toString());
+        Log.d("populateHashMapToUser", "INPUT="+input.toString());
         return user;
     }
 
@@ -71,7 +75,7 @@ public class EntityFactory {
      * @param input
      * @return
      */
-    public static WalletDto populateHashMapToWallet (HashMap<String, String> input) {
+    public static WalletDto populateHashMapToWallet (Map<String, String> input) {
         WalletDto result = new WalletDto();
         result.setUsername (input.get ("username"));
         result.setBalance (Float.valueOf (input.get ("balance")));
@@ -101,7 +105,7 @@ public class EntityFactory {
      * @param element map to be converted to a Pausa activa DTO
      * @return Pausa activa DTO
      */
-    public static PausaRegistryDto populateHashmapToPausaRegistry(HashMap<String, String> element) {
+    public static PausaRegistryDto populateHashmapToPausaRegistry(Map<String, String> element) {
         PausaRegistryDto pausaRegistryDto = new PausaRegistryDto();
 
         pausaRegistryDto.setPausaType(element.get("pausaType"));

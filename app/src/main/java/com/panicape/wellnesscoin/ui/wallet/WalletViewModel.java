@@ -1,4 +1,4 @@
-package com.panicape.wellnesscoin.ui.slideshow;
+package com.panicape.wellnesscoin.ui.wallet;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SlideshowViewModel extends ViewModel {
+public class WalletViewModel extends ViewModel {
 
     private MutableLiveData<String> mWalletValue;
 
@@ -15,7 +15,7 @@ public class SlideshowViewModel extends ViewModel {
 
 
 
-    public SlideshowViewModel() {
+    public WalletViewModel() {
 //        mText = new MutableLiveData<String>();
 //        mText.setValue("This is slideshow fragment");
         mWalletValue = new MutableLiveData<String>("0");

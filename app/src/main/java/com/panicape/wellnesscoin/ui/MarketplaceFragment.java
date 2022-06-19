@@ -29,7 +29,7 @@ public class MarketplaceFragment extends Fragment {
         View root = binding.getRoot();
 
         WebView myWebView = (WebView) root.findViewById(R.id.marketplaceView);
-        myWebView.loadUrl("https://www.google.com/");
+        myWebView.loadUrl("https://www.cyclos.org/");
 
         return root;
     }

@@ -4,25 +4,20 @@ public class UserDto {
 
     private String username;
 
+    private String email;
+
+    private String userType;
+
     private String name;
 
     private String mail;
 
     private String phone;
 
-    private String password;
-
-
-    public UserDto(String username, String name, String mail, String phone, String password) {
+    public UserDto(String username, String email, String userType, String name, String mail, String phone) {
         this.username = username;
-        this.name = name;
-        this.mail = mail;
-        this.phone = phone;
-        this.password = password;
-    }
-
-    public UserDto(String username, String name, String mail, String phone) {
-        this.username = username;
+        this.email = email;
+        this.userType = userType;
         this.name = name;
         this.mail = mail;
         this.phone = phone;
@@ -61,5 +56,21 @@ public class UserDto {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

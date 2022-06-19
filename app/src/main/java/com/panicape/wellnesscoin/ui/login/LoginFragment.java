@@ -1,11 +1,13 @@
 package com.panicape.wellnesscoin.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -21,12 +23,15 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.panicape.wellnesscoin.R;
+import com.panicape.wellnesscoin.HelpMainActivity;
 import com.panicape.wellnesscoin.databinding.FragmentLoginBinding;
 
 public class LoginFragment extends Fragment {
 
     private LoginViewModel loginViewModel;
     private FragmentLoginBinding binding;
+
+    private ImageButton logInfoBtn;
 
     @Nullable
     @Override
@@ -48,6 +53,15 @@ public class LoginFragment extends Fragment {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
+        logInfoBtn = binding.logInfoBtn;
+        logInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent infoIntent = new Intent(getActivity(), HelpMainActivity.class);
+                startActivity(infoIntent);
+            }
+        });
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +73,6 @@ public class LoginFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             showLoginMsg("Bienvenido/a");
-                            loadingProgressBar.setVisibility(View.INVISIBLE);
 
                             NavigationView navigationView = (NavigationView) v.getRootView().findViewById(R.id.nav_view);
                             navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
@@ -67,8 +80,9 @@ public class LoginFragment extends Fragment {
 //                            navigationView.getMenu().findItem(R.id.nav_slideshow).setVisible(true);
                             navigationView.getMenu().findItem(R.id.nav_marketplace).setVisible(true);
                             navigationView.getMenu().findItem(R.id.nav_login_main).setVisible(true);
+//                            navigationView.getMenu().findItem(R.id.action_login).setVisible(true);
+                            loadingProgressBar.setVisibility(View.INVISIBLE);
 
-//                            Navigation.findNavController(v).navigate(R.id.action_nav_login_to_nav_home);
                             Navigation.findNavController(v).navigate(R.id.login_home_frag);
                         } else {
                             showLoginMsg("Credenciales erroneas");

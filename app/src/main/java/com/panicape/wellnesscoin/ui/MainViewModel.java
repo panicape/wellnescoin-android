@@ -1,4 +1,4 @@
-package com.panicape.wellnesscoin;
+package com.panicape.wellnesscoin.ui;
 
 import androidx.lifecycle.ViewModel;
 
