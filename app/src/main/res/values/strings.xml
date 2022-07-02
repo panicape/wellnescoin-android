@@ -66,4 +66,8 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="video">Video</string>
+    <string name="walk">Caminar</string>
+    <string name="pausas_activas">Pausas Activas</string>
+    <string name="pausa_sel_text">Escoja el tipo de Tipo de pausa a ingresar</string>
 </resources>

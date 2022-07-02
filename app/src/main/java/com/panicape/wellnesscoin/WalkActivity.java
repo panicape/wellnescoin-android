@@ -14,6 +14,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class WalkActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager sensorManager;
@@ -25,6 +30,9 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     private int counter;
 
     private Button startWBtn;
+
+
+    // Methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

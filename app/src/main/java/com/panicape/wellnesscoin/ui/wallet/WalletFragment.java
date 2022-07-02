@@ -5,28 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentWalletBinding;
-
-import java.util.ArrayList;
 
 public class WalletFragment extends Fragment {
 
     private WalletViewModel slideshowViewModel;
     private FragmentWalletBinding binding;
-
     private WebView walletWebView;
 
+    // Methods
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,12 +29,10 @@ public class WalletFragment extends Fragment {
         View root = binding.getRoot();
 
         walletWebView = binding.walletWV;
-        walletWebView.loadUrl("https://www.cyclos.org/");
+        walletWebView.loadUrl("https://communities.cyclos.org/welfarecoin");
 
         return root;
-
     }
-
 
     @Override
     public void onDestroyView() {

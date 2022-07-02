@@ -1,7 +1,5 @@
 package com.panicape.wellnesscoin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,16 +7,25 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.panicape.wellnesscoin.tools.AlarmReceiver;
 
 import java.util.Calendar;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class ConfigActivity extends AppCompatActivity {
 
-    AlarmManager alarmMgr;
+    private AlarmManager alarmMgr;
 
     private static final int alarmId = 1;
 
+
+    // Methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

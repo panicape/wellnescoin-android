@@ -23,11 +23,16 @@ import com.panicape.wellnesscoin.databinding.ActivityMainBinding;
 
 /**
  *
+ * @author panicape
+ * @version 0.01 May 2022
  */
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+
+    // Methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,21 +1,25 @@
 package com.panicape.wellnesscoin;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class Pausa_help_activity extends AppCompatActivity {
 
     ImageButton back;
 
 
-
+    // Methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
