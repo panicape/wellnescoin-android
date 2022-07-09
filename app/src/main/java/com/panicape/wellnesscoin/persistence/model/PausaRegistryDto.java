@@ -1,5 +1,10 @@
 package com.panicape.wellnesscoin.persistence.model;
 
+/**
+ *
+ * @author panicape
+ * @version 1.01
+ */
 public class PausaRegistryDto {
 
     private String dateCreation;
@@ -11,8 +16,13 @@ public class PausaRegistryDto {
     private String content;
 
 
+    // Constructor
+
     public PausaRegistryDto() {
     }
+
+
+    // Methods
 
     public String getDateCreation() {
         return dateCreation;

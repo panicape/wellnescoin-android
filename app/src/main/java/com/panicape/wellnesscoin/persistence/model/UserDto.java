@@ -1,5 +1,10 @@
 package com.panicape.wellnesscoin.persistence.model;
 
+/**
+ *
+ * @author panicape
+ * @version 1.01
+ */
 public class UserDto {
 
     private String username;

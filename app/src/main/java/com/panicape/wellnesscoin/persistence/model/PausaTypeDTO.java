@@ -2,6 +2,11 @@ package com.panicape.wellnesscoin.persistence.model;
 
 import java.util.Date;
 
+/**
+ *
+ * @author panicape
+ * @version 1.01
+ */
 public class PausaTypeDTO {
 
     private String name;
@@ -9,6 +14,9 @@ public class PausaTypeDTO {
     private Date dateCreation;
 
     private String userCreation;
+
+
+    // constructor
 
     public PausaTypeDTO(String name, Date dateCreation, String userCreation) {
         this.name = name;
@@ -18,6 +26,7 @@ public class PausaTypeDTO {
 
     public PausaTypeDTO() {
     }
+
 
     // Getters & Setters
 

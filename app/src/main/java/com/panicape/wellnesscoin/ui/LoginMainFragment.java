@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.panicape.wellnesscoin.PausaHands;
+import com.panicape.wellnesscoin.PausasMainActivity;
 import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentLoginMainBinding;
 
@@ -58,7 +56,10 @@ public class LoginMainFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(view.getContext(), "En construcción", Toast.LENGTH_SHORT).show();
-                Intent doPausaIntent = new Intent(getActivity(), PausaHands.class);
+                //Intent doPausaIntent = new Intent(getActivity(), PausaHands.class);
+                //startActivity(doPausaIntent);
+
+                Intent doPausaIntent = new Intent(getActivity(), PausasMainActivity.class);
                 startActivity(doPausaIntent);
             }
         });
@@ -77,6 +78,7 @@ public class LoginMainFragment extends Fragment {
             }
         });
 
-
     }
+
+
 }

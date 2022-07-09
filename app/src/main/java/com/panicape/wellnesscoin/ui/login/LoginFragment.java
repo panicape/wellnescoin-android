@@ -22,8 +22,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.HelpMainActivity;
+import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentLoginBinding;
 
 public class LoginFragment extends Fragment {
@@ -31,7 +31,16 @@ public class LoginFragment extends Fragment {
     private LoginViewModel loginViewModel;
     private FragmentLoginBinding binding;
 
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+
     private ImageButton logInfoBtn;
+    private Button loginButton;
+
+    ProgressBar loadingProgressBar;
+
+
+    // Methods
 
     @Nullable
     @Override
@@ -49,19 +58,30 @@ public class LoginFragment extends Fragment {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = binding.username;
-        final EditText passwordEditText = binding.password;
-        final Button loginButton = binding.login;
-        final ProgressBar loadingProgressBar = binding.loading;
+        usernameEditText = binding.username;
+        passwordEditText = binding.password;
+
+        loadingProgressBar = binding.loading;
+
+        loginButton = binding.login;
         logInfoBtn = binding.logInfoBtn;
+
         logInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent infoIntent = new Intent(getActivity(), HelpMainActivity.class);
                 startActivity(infoIntent);
+
+                NavigationView navigationView = v.getRootView().findViewById(R.id.nav_view);
+
+                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_gallery).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_marketplace).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_login_main).setVisible(false);
+
+                loadingProgressBar.setVisibility(View.INVISIBLE);
             }
         });
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,16 +91,15 @@ public class LoginFragment extends Fragment {
                         passwordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            showLoginMsg("Bienvenido/a");
+                        if (task.isSuccessful()) {
+                            showLoginMsg("Bienvenido/a"+FirebaseAuth.getInstance().getCurrentUser());
 
                             NavigationView navigationView = (NavigationView) v.getRootView().findViewById(R.id.nav_view);
                             navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
                             navigationView.getMenu().findItem(R.id.nav_gallery).setVisible(true);
-//                            navigationView.getMenu().findItem(R.id.nav_slideshow).setVisible(true);
                             navigationView.getMenu().findItem(R.id.nav_marketplace).setVisible(true);
                             navigationView.getMenu().findItem(R.id.nav_login_main).setVisible(true);
-//                            navigationView.getMenu().findItem(R.id.action_login).setVisible(true);
+
                             loadingProgressBar.setVisibility(View.INVISIBLE);
 
                             Navigation.findNavController(v).navigate(R.id.login_home_frag);
@@ -90,8 +109,6 @@ public class LoginFragment extends Fragment {
                         }
                     }
                 });
-
-
             }
         });
     }
@@ -111,4 +128,5 @@ public class LoginFragment extends Fragment {
             loginViewModel = null;
         }
     }
+
 }

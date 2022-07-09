@@ -2,20 +2,25 @@ package com.panicape.wellnesscoin.persistence.model.enums;
 
 /**
  *
+ * @author panicape
+ * @version 1.01
  */
 public enum ETransactionStatus {
 
-    ASKED(1, "ASKED"),
+    ASKED (1, "ASKED"),
     PAYED (2, "PAYED"),
     CANCELLED (3, "CANCELLED");
+
+
+    // Variables
 
     private Integer code;
 
     private String name;
 
-    /**
-     * Constructor
-     */
+
+    // Constructor
+
     ETransactionStatus() {
     }
 
@@ -23,6 +28,9 @@ public enum ETransactionStatus {
         this.code = code;
         this.name = name;
     }
+
+
+    // Methods
 
     public Integer getCode() {
         return code;

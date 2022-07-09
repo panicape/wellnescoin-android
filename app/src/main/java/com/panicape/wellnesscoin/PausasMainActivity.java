@@ -30,7 +30,7 @@ public class PausasMainActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.radio_pausa_video:
                 if (checked) {
-                    Intent video = new Intent(this, PausasMainActivity.class);
+                    Intent video = new Intent(this, PausaHands.class);
                     startActivity(video);
                 }
                     break;
@@ -41,5 +41,10 @@ public class PausasMainActivity extends AppCompatActivity {
                 }
                     break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

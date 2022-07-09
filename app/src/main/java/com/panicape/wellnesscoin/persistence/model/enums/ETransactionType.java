@@ -1,10 +1,15 @@
 package com.panicape.wellnesscoin.persistence.model.enums;
 
+/**
+ *
+ * @author panicape
+ * @version 1.01
+ */
 public enum ETransactionType {
 
-    WALLET_CREATE(1),
-    BALANCE_UPDDATE(2),
-    DO_PAYMENT (3);
+    PAUSA_REGISTRATION(1),
+    PAUSA_VALIDATION(2),
+    VALIDATION_REWARD_OBTAINED (3);
 
     private int code;
 

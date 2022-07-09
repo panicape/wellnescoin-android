@@ -25,4 +25,9 @@ public class WebActivity extends AppCompatActivity {
         myWebView = (WebView) findViewById(R.id.wellfarWV);
         myWebView.loadUrl("https://clarenes.wixsite.com/welfarecoin");
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

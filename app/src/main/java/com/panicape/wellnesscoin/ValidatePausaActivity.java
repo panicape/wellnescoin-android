@@ -19,4 +19,10 @@ public class ValidatePausaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_validate_pausa);
     }
+
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

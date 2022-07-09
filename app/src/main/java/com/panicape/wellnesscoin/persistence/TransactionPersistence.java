@@ -2,7 +2,6 @@ package com.panicape.wellnesscoin.persistence;
 
 import com.google.firebase.database.DatabaseReference;
 import com.panicape.wellnesscoin.persistence.model.TransactionsDto;
-import com.panicape.wellnesscoin.persistence.model.enums.ETransactionType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,14 +28,6 @@ public class TransactionPersistence {
         return new ArrayList<TransactionsDto>();
     }
 
-    public void saveAskPayment(TransactionsDto transactionsDto) {
-
-    }
-
-    public void updatePayment(TransactionsDto transactionsDto) {
-
-    }
-
     public List<TransactionsDto> getAllTransactionsOfUsername() {
         return new ArrayList<TransactionsDto>();
     }
@@ -50,11 +41,7 @@ public class TransactionPersistence {
             HashMap<String, String> result = new HashMap<String, String>();
             result.put("date", transactionsDto.getDateCreation().toString());
             result.put("txType", transactionsDto.getTxType().toString());
-            result.put("amount", transactionsDto.getAmount().toString());
             result.put("from", transactionsDto.getFrom());
-            if (transactionsDto.getTxType() == ETransactionType.DO_PAYMENT.getCode()) {
-                result.put("to", transactionsDto.getTo());
-            }
 
             return result;
         }
@@ -67,13 +54,7 @@ public class TransactionPersistence {
         SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy-HHmmss");
         result.setDateCreation (sdf.parse(input.get("date")));
         result.setTxType (Integer.getInteger(input.get("txType")));
-        result.setStatus(Integer.getInteger(input.get("status")));
-        result.setAmount (Float.valueOf(input.get("amount")));
-
         result.setFrom (input.get("from"));
-        if (input.containsKey("to")) {
-            result.setTo(input.get("to"));
-        }
 
         return result;
     }

@@ -1,6 +1,5 @@
 package com.panicape.wellnesscoin.persistence.model;
 
-
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -9,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *
  * @author panicape
  * @version 1.01
  */

@@ -5,7 +5,9 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 
 /**
+ *
  * @author panicape
+ * @version 1.01
  */
 @AllArgsConstructor
 public class TransactionsDto {
@@ -15,21 +17,17 @@ public class TransactionsDto {
     // Transaction Type
     private Integer txType;
 
-    private Float amount;
-
+    // Participant  that creates the transaction
     private String from;
 
-    private String to;
 
-    // 1- Asked, 2-payed, 3-cancelled
-    private Integer status;
-
-    // this field shouldn't be saved in Transactions,
-    // It is only used to be compared with user-password from wallet
-    private String password;
+    // Constructor
 
     public TransactionsDto() {
     }
+
+
+    //Methods
 
     public Date getDateCreation() {
         return dateCreation;
@@ -47,14 +45,6 @@ public class TransactionsDto {
         this.txType = txType;
     }
 
-    public Float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Float amount) {
-        this.amount = amount;
-    }
-
     public String getFrom() {
         return from;
     }
@@ -63,27 +53,4 @@ public class TransactionsDto {
         this.from = from;
     }
 
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

@@ -11,6 +11,8 @@
         android:orderInCategory="100"
         android:title="@string/information"
         app:showAsAction="never"  />
+
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -32,6 +34,11 @@
 <!--        android:orderInCategory="100"-->
 <!--        android:title="Validar Pausas"-->
 <!--        app:showAsAction="never"  />-->
+    <item
+        android:id="@+id/action_main"
+        android:orderInCategory="100"
+        android:title="Ir al inicio"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_logoff"
         android:orderInCategory="100"

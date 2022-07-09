@@ -53,4 +53,9 @@ public class ConfigActivity extends AppCompatActivity {
 //        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
 //                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

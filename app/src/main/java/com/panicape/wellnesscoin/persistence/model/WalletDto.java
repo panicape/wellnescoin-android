@@ -2,9 +2,10 @@ package com.panicape.wellnesscoin.persistence.model;
 
 import java.util.Date;
 
-
 /**
+ *
  * @author panicape
+ * @version 1.01
  */
 public class WalletDto {
 
@@ -16,8 +17,14 @@ public class WalletDto {
 
     private Date lastUpdate;
 
+
+    // Constructor
+
     public WalletDto() {
     }
+
+
+    // Methods
 
     public String getUsername() {
         return username;

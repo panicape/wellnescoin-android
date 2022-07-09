@@ -299,4 +299,8 @@ public class PausaHands extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

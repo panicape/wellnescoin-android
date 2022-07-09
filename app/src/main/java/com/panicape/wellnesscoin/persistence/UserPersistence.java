@@ -1,7 +1,6 @@
 package com.panicape.wellnesscoin.persistence;
 
 import com.google.android.gms.tasks.RuntimeExecutionException;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.core.FirestoreClient;
 import com.panicape.wellnesscoin.persistence.model.UserDto;
@@ -17,11 +16,12 @@ import java.util.List;
  */
 public class UserPersistence {
 
-    List<UserDto> result;
+    private List<UserDto> result;
 
-    UserDto resultSingle;
+    private UserDto resultSingle;
 
     private static FirestoreClient firestoreClient;
+
     private static FirebaseFirestore firestoreDb;
 
 

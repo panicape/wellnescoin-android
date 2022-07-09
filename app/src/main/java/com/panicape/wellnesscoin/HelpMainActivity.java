@@ -1,16 +1,22 @@
 package com.panicape.wellnesscoin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.panicape.wellnesscoin.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HelpMainActivity extends AppCompatActivity implements View.OnTouchListener {
 
@@ -18,7 +24,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
     private static final String TAG = "HELP ACTIVITY";
 
-    private static final float MIN_ZOOM = 1f,MAX_ZOOM = 1f;
+    private static final float MIN_ZOOM = 1f, MAX_ZOOM = 1f;
 
     // These matrices will be used to scale points of the image
     Matrix matrix = new Matrix();
@@ -134,9 +140,11 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         point.set(x / 2, y / 2);
     }
 
-    /** Show an event in the LogCat view, for debugging */
+    /**
+     * Show an event in the LogCat view, for debugging
+     */
     private void dumpEvent(MotionEvent event) {
-        String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE","POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
+        String names[] = {"DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE", "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?"};
         StringBuilder sb = new StringBuilder();
         int action = event.getAction();
         int actionCode = action & MotionEvent.ACTION_MASK;
@@ -168,4 +176,88 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem loginItem = menu.findItem(R.id.action_login);
+        MenuItem logoffItem = menu.findItem(R.id.action_logoff);
+        MenuItem exitItem = menu.findItem(R.id.action_exit);
+
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem infoItem = menu.findItem(R.id.action_info);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem configItem = menu.findItem(R.id.action_settings);
+
+        loginItem.setVisible(true);
+        exitItem.setVisible(true);
+        webItem.setVisible(true);
+
+        mainItem.setVisible(false);
+        logoffItem.setVisible(false);
+
+        infoItem.setVisible(false);
+        configItem.setVisible(false);
+        profileItem.setVisible(false);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            loginItem.setVisible(true);
+            profileItem.setVisible(false);
+            logoffItem.setVisible(false);
+        } else {
+            loginItem.setVisible(false);
+            profileItem.setVisible(true);
+            logoffItem.setVisible(true);
+        }
+
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+
+        MenuItem loginItem = findViewById(R.id.action_login);
+        MenuItem mainMenuItem =  findViewById(R.id.action_main);
+        MenuItem logoffItem = findViewById(R.id.action_logoff);
+
+        Intent webIntent = new Intent(this, WebActivity.class);
+        Intent mainIntent = new Intent(this, MainActivity.class);
+
+        switch (item.getItemId()) {
+            case R.id.action_login:
+                startActivity(mainIntent);
+
+                return true;
+            case R.id.action_web:
+                startActivity(webIntent);
+
+                return true;
+            case R.id.action_exit:
+
+                loginItem.setVisible(false);
+                mainMenuItem.setVisible(false);
+                logoffItem.setVisible(false);
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
+    }
+
 }

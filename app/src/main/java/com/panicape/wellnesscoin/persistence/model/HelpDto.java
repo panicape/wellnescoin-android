@@ -1,5 +1,10 @@
 package com.panicape.wellnesscoin.persistence.model;
 
+/**
+ *
+ * @author panicape
+ * @version 1.01
+ */
 public class HelpDto {
 
     private String shortLabel;
@@ -13,13 +18,18 @@ public class HelpDto {
     private String dateCreation;
 
     /**
-     * preferiblemente poner mail del usuario
+     * poner mail del usuario
      */
     private String userCreation;
 
 
+    // Constructor
+
     public HelpDto() {
     }
+
+
+    // Methods
 
     public String getShortLabel() {
         return shortLabel;
