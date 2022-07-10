@@ -34,13 +34,6 @@ public class Pausa_help_activity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
     }
 
-
-    @Override
-    public void onBackPressed() {
-        Intent mainActIntent = new Intent(this, MainActivity.class);
-        startActivity(mainActIntent);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -95,4 +88,9 @@ public class Pausa_help_activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent backIntent = new Intent(this, HelpMainActivity.class);
+        startActivity(backIntent);
+    }
 }

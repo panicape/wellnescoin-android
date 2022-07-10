@@ -1,5 +1,6 @@
 package com.panicape.wellnesscoin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 
@@ -28,6 +29,7 @@ public class WebActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        Intent intent = new Intent(this, MainActivity.class);
     }
+
 }

@@ -49,7 +49,6 @@ public class LoginMainFragment extends Fragment {
         Navigation.findNavController(view).clearBackStack(R.id.nav_login);
 
         doPausas = (CardView) view.getRootView().findViewById(R.id.pausaCV) ;
-        wallet = (CardView) view.getRootView().findViewById(R.id.walletCV) ;
         marketplace = (CardView) view.getRootView().findViewById(R.id.marketplaceCV) ;
 
         doPausas.setOnClickListener(new View.OnClickListener() {
@@ -64,21 +63,12 @@ public class LoginMainFragment extends Fragment {
             }
         });
 
-        wallet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_login_home_to_nav_slideshow);
-            }
-        });
-
         marketplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_nav_login_home_to_nav_marketplace);
             }
         });
-
     }
-
 
 }

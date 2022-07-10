@@ -13,7 +13,7 @@
     <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Perfil</string>
     <string name="menu_slideshow">Wallet</string>
-    <string name="menu_marketplace">Marketplace</string>
+    <string name="menu_marketplace">Marketplace y cartera</string>
     <string name="exit">Salir</string>
     <string name="profile_title">Perfil</string>
     <string name="prof_name">Nombre</string>
@@ -70,4 +70,7 @@
     <string name="walk">Caminar</string>
     <string name="pausas_activas">Pausas Activas</string>
     <string name="pausa_sel_text">Escoja el tipo de Tipo de pausa a ingresar</string>
+    <string name="help_main_title">Información General</string>
+    <string name="help_main_hint">Infografia general del entorno</string>
+    <string name="next_help">Siguiente Ayuda</string>
 </resources>

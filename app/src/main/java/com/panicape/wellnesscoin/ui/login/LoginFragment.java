@@ -92,7 +92,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            showLoginMsg("Bienvenido/a"+FirebaseAuth.getInstance().getCurrentUser());
+                            showLoginMsg("Bienvenido/a");
 
                             NavigationView navigationView = (NavigationView) v.getRootView().findViewById(R.id.nav_view);
                             navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);

@@ -78,39 +78,39 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
+
         MenuItem loginItem = menu.findItem(R.id.action_login);
+        MenuItem helpItem =  menu.findItem(R.id.action_info);
+        MenuItem settingsItem =  menu.findItem(R.id.action_settings);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
-
-        MenuItem mainItem = menu.findItem(R.id.action_main);
-        MenuItem profileItem = menu.findItem(R.id.action_profile);
-        MenuItem infoItem = menu.findItem(R.id.action_info);
-        MenuItem webItem = menu.findItem(R.id.action_web);
-        MenuItem configItem = menu.findItem(R.id.action_settings);
 
         int id = navController.getCurrentDestination().getId();
 
         switch (id) {
             case R.id.nav_login:
-                infoItem.setVisible(false);
+                helpItem.setVisible(true);
                 webItem.setVisible(true);
                 exitItem.setVisible(true);
 
                 loginItem.setVisible(false);
                 mainItem.setVisible(false);
                 logoffItem.setVisible(false);
-                configItem.setVisible(false);
+                settingsItem.setVisible(false);
                 profileItem.setVisible(false);
 
                 break;
             case R.id.nav_login_main:
-                infoItem.setVisible(false);
-                webItem.setVisible(false);
                 exitItem.setVisible(true);
 
+                helpItem.setVisible(false);
+                webItem.setVisible(false);
                 loginItem.setVisible(false);
                 mainItem.setVisible(false);
-                configItem.setVisible(false);
+                settingsItem.setVisible(false);
 
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     logoffItem.setVisible(true);
@@ -152,17 +152,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(webIntent);
                 return true;
             case R.id.action_exit:
-                MenuItem mainMenuItem =  findViewById(R.id.action_main);
-                MenuItem loginItem = findViewById(R.id.action_login);
-                MenuItem profileItem = findViewById(R.id.action_profile);
-                MenuItem logoffItem = findViewById(R.id.action_logoff);
-
-                loginItem.setVisible(true);
-
-                mainMenuItem.setVisible(false);
-                logoffItem.setVisible(false);
-                profileItem.setVisible(false);
-
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 return true;
@@ -181,7 +170,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        FirebaseAuth.getInstance().signOut();
-        finish();
+        int id = navController.getCurrentDestination().getId();
+
+        switch (id) {
+            case R.id.nav_login:
+                finish();
+
+                break;
+            case R.id.nav_marketplace:
+                navController.navigate(R.id.nav_home);
+
+                break;
+            case R.id.nav_wallet:
+                navController.navigate(R.id.nav_home);
+
+                break;
+
+            default:
+                FirebaseAuth.getInstance().signOut();
+                navController.navigate(R.id.nav_login);
+
+                break;
+        }
     }
 }

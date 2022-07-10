@@ -18,6 +18,7 @@
         android:layout_marginStart="136dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/logo"
+        android:contentDescription="Logo de la aplicación"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
-        android:text="Bienvenido/a"
+        android:text="@string/welcome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
 
@@ -59,13 +60,15 @@
                     android:id="@+id/imgPausaDesc"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/pausaactiva" />
+                    android:src="@drawable/pausaactiva"
+                    android:contentDescription="Logo  de acción de Pausa Activa"
+                    tools:ignore="ImageContrastCheck,ImageContrastCheck,ImageContrastCheck" />
 
                 <TextView
                     android:id="@+id/opt1Title"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:text="Pausa activa"
                     android:textStyle="bold|italic" />
 
@@ -89,80 +92,24 @@
                     android:id="@+id/imgPausaDesc2"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:contentDescription="Logo temporal para marketplace y wallet"
                     android:src="@drawable/paginaweb" />
 
                 <TextView
                     android:id="@+id/opt2Title"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="Marketplace"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/menu_marketplace"
                     android:textStyle="bold|italic" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/walletCV"
-            android:layout_width="150dp"
-            android:layout_margin="8dp"
-            android:padding="8dp"
-            app:cardCornerRadius="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <ImageView
-                    android:id="@+id/imgPausaDesc3"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/money_wallet" />
-
-                <TextView
-                    android:id="@+id/opt3Title"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:text="Wallet"
-                    android:textStyle="bold|italic" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <!--        <androidx.cardview.widget.CardView android:id="@+id/profileCV"-->
-        <!--            android:layout_width="150dp"-->
-        <!--            android:layout_margin="8dp"-->
-        <!--            android:padding="8dp"-->
-        <!--            app:cardCornerRadius="8dp">-->
-
-        <!--            <LinearLayout-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:orientation="horizontal"-->
-        <!--                android:padding="8dp">-->
-
-        <!--                <ImageView-->
-        <!--                    android:id="@+id/imgPausaDesc4"-->
-        <!--                    android:layout_width="60dp"-->
-        <!--                    android:layout_height="60dp"-->
-        <!--                    android:src="@mipmap/ic_launcher" />-->
-
-        <!--                <TextView-->
-        <!--                    android:id="@+id/opt4Title"-->
-        <!--                    android:layout_width="match_parent"-->
-        <!--                    android:layout_height="40dp"-->
-        <!--                    android:layout_marginLeft="5dp"-->
-        <!--                    android:text="Mi perfil"-->
-        <!--                    android:textStyle="bold|italic" />-->
-
-        <!--            </LinearLayout>-->
-        <!--        </androidx.cardview.widget.CardView>-->
     </androidx.gridlayout.widget.GridLayout>
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/main_menu_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="132dp"

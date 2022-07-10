@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -22,8 +23,9 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
     private ImageView infographicMain;
 
-    private static final String TAG = "HELP ACTIVITY";
+    private ImageButton nexthelpBtn;
 
+    private static final String TAG = "HELP ACTIVITY";
     private static final float MIN_ZOOM = 1f, MAX_ZOOM = 1f;
 
     // These matrices will be used to scale points of the image
@@ -42,6 +44,8 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
     float oldDist = 1f;
 
 
+    // Methods
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,14 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         infographicMain = (ImageView) findViewById(R.id.infographicLogin);
         infographicMain.setOnTouchListener(this);
 
+        nexthelpBtn = findViewById(R.id.nextHelpBtn);
+        nexthelpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent pausaHelpIntent = new Intent(v.getContext(), Pausa_help_activity.class);
+                startActivity(pausaHelpIntent);
+            }
+        });
     }
 
     @Override
@@ -203,7 +215,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
         mainItem.setVisible(false);
         logoffItem.setVisible(false);
-
         infoItem.setVisible(false);
         configItem.setVisible(false);
         profileItem.setVisible(false);
@@ -222,36 +233,33 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment_content_main);
 
-        MenuItem loginItem = findViewById(R.id.action_login);
-        MenuItem mainMenuItem =  findViewById(R.id.action_main);
-        MenuItem logoffItem = findViewById(R.id.action_logoff);
-
-        Intent webIntent = new Intent(this, WebActivity.class);
-        Intent mainIntent = new Intent(this, MainActivity.class);
+        boolean response = false;
 
         switch (item.getItemId()) {
             case R.id.action_login:
-                startActivity(mainIntent);
+                FirebaseAuth.getInstance().signOut();
+                navController.navigate(R.id.nav_login);
 
-                return true;
+                response = true;
+                break;
             case R.id.action_web:
+                Intent webIntent = new Intent(this, WebActivity.class);
                 startActivity(webIntent);
 
-                return true;
+                response = true;
+                break;
             case R.id.action_exit:
-
-                loginItem.setVisible(false);
-                mainMenuItem.setVisible(false);
-                logoffItem.setVisible(false);
-
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                return true;
+
+                response = true;
+                break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return response;
     }
 
     @Override
