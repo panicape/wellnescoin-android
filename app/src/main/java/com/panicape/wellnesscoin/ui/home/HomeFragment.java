@@ -8,7 +8,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.ScaleAnimation;
-import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -16,9 +15,7 @@ import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
-import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -40,13 +37,6 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        loginBtn = binding.loginBtn;
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.nav_login);
-            }
-        });
         infographics = binding.infographicLogin;
         scrollView = binding.homeScrollView;
 

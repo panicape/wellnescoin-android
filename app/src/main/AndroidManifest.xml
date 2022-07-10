@@ -22,6 +22,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wellnesscoin">
         <activity
+            android:name=".MarketplaceHelpActivity"
+            android:exported="false" />
+        <activity
             android:name=".WalletHelpActivity"
             android:exported="false" />
         <activity

@@ -4,37 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WalletHelpActivity">
+    tools:context=".MarketplaceHelpActivity">
 
     <TextView
-        android:id="@+id/walletHelpTitle"
+        android:id="@+id/markeplaceHelpTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="52dp"
-        android:text="Acerca de la billetera"
-        android:textSize="24sp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="44dp"
+        android:text="Acerca del Marketplace"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/logoMarketplaceHelp" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="318dp"
-        android:layout_height="156dp"
+        android:id="@+id/marketplaceHelpTV"
+        android:layout_width="319dp"
+        android:layout_height="155dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="Esta opción permite conocer el saldo actual de welfare coins al igual que el historial de transacciones realizadas con esta moneda"
+        android:layout_marginTop="40dp"
+        android:text=" Esta opción permite visitar los comercios adscritos a la red de comercios de bienestar de la moneda welfare coin para la identificación de los productos a redimir con esta moneda"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/walletHelpTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/markeplaceHelpTitle" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/logoMarketplaceHelp"
         android:layout_width="150sp"
         android:layout_height="150sp"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
