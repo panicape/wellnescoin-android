@@ -10,8 +10,8 @@
         android:id="@+id/walletHelpTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
         android:text="Acerca de la billetera"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -23,11 +23,12 @@
         android:layout_width="318dp"
         android:layout_height="156dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="36dp"
         android:text="Esta opción permite conocer el saldo actual de welfare coins al igual que el historial de transacciones realizadas con esta moneda"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/walletHelpTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/walletHelpTitle"
+        />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -37,5 +38,17 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="Logo de la app" />
+
+    <ImageButton
+        android:id="@+id/WH_nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@+id/walletHelpTitle"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:srcCompat="@android:drawable/ic_media_ff"
+        android:contentDescription="Botón para ir a la siguiente pantalla"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

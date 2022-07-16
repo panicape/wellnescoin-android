@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class Pausa_help_activity extends AppCompatActivity {
 
-    private ImageButton backBtn;
+    private ImageButton nextBtn;
 
 
     // Methods
@@ -31,7 +32,13 @@ public class Pausa_help_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pausa_help);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextHelp = new Intent(v.getContext(), WalletHelpActivity.class);
+                startActivity(nextHelp);
+            }
+        });
     }
 
     @Override

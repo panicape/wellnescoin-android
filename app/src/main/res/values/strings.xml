@@ -56,13 +56,13 @@
     <string name="get_in">Ingresar</string>
 
     <string name="pausa_help_1">
-        1) Conocer el estado del contador de tiempo para notificar el momento de realizar la pausa activa
+        1) Conocer el estado del contador de tiempo para notificar el "momento" de realizar la pausa activa.
     </string>
     <string name="pausa_help_2">
-        2) activar el contador de tiempo para notificar el momento de realizar la pausa activa (aparece cada dos horas de haberse activado si no tiene otro tipo de interrupción)
+        2) Activar el contador de tiempo para notificar el "momento" de realizar la pausa activa (normalmente la notificación aparece cada dos horas de haberse activado este contador sin interrupción).
     </string>
     <string name="pausa_help_3">
-        3 ) desactivar el contador para iniciar el nuevo conteo de tiempo. Al realizar una pausa se vuelve a iniciar automáticamente
+        3 ) Desactivar el contador para iniciar el nuevo conteo de tiempo o porque se va a realizar una pausa activa.
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -73,4 +73,6 @@
     <string name="help_main_title">Información General</string>
     <string name="help_main_hint">Infografia general del entorno</string>
     <string name="next_help">Siguiente Ayuda</string>
+    <string name="status_pausa_activa_title">\"Estado Pausa Activa\"</string>
+    <string name="wallet_hep_txt">Esta opción permite conocer el saldo actual de welfare coins al igual que el historial de transacciones realizadas con esta moneda</string>
 </resources>

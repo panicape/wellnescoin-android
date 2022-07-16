@@ -12,11 +12,12 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21481481481481482" />
         <entry key="app/src/main/res/layout/activity_marketplace_help.xml" value="0.21784420289855072" />
         <entry key="app/src/main/res/layout/activity_pausa_hands.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/activity_pausa_help.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_pausa_help.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_pausas_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_validate_pausa.xml" value="0.2758152173913043" />
+        <entry key="app/src/main/res/layout/activity_validate_pausas_main.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/layout/activity_walk.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/activity_wallet_help.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_wallet_help.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_web.xml" value="0.34556159420289856" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.29483695652173914" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.22" />
