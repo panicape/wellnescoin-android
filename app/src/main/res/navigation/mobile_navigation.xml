@@ -37,6 +37,9 @@
             android:id="@+id/action_nav_login_home_to_nav_slideshow"
             app:destination="@id/nav_wallet"
             />
+        <action
+            android:id="@+id/action_login_home_to_nav_pausas_status"
+            app:destination="@id/nav_pausas_status" />
     </fragment>
 
     <fragment
@@ -50,6 +53,26 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_marketplace"
+        android:name="com.panicape.wellnesscoin.ui.MarketplaceFragment"
+        android:label="@string/menu_marketplace"
+        tools:layout="@layout/marketplace_fragment" >
+        <action
+            android:id="@+id/action_nav_marketplace_to_nav_login_home"
+            app:destination="@id/login_home_frag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_pausas_status"
+        android:name="com.panicape.wellnesscoin.ui.PausasStatusFragment"
+        android:label="Estado de las Pausas"
+        tools:layout="@layout/fragment_pausas_status" >
+        <action
+            android:id="@+id/action_nav_pausas_status_to_nav_login_home"
+            app:destination="@id/login_home_frag" />
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_wallet"
         android:name="com.panicape.wellnesscoin.ui.wallet.WalletFragment"
         android:label="@string/menu_slideshow"
@@ -59,13 +82,5 @@
             app:destination="@id/login_home_frag" />
     </fragment>
 
-    <fragment
-        android:id="@+id/nav_marketplace"
-        android:name="com.panicape.wellnesscoin.ui.MarketplaceFragment"
-        android:label="@string/menu_marketplace"
-        tools:layout="@layout/marketplace_fragment" >
-        <action
-            android:id="@+id/action_nav_marketplace_to_nav_login_home"
-            app:destination="@id/login_home_frag" />
-    </fragment>
+
 </navigation>

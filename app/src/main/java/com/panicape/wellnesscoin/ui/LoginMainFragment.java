@@ -27,7 +27,7 @@ public class LoginMainFragment extends Fragment {
 
     private FragmentLoginMainBinding binding;
 
-    CardView wallet, doPausas, marketplace;
+    CardView pausaStatus, doPausas, marketplace;
 
 
 
@@ -54,6 +54,7 @@ public class LoginMainFragment extends Fragment {
 
         doPausas = (CardView) view.getRootView().findViewById(R.id.pausaCV) ;
         marketplace = (CardView) view.getRootView().findViewById(R.id.marketplaceCV) ;
+        pausaStatus = (CardView) view.getRootView().findViewById(R.id.pausastatusCV) ;
 
         doPausas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +65,13 @@ public class LoginMainFragment extends Fragment {
 
                 Intent doPausaIntent = new Intent(getActivity(), PausasMainActivity.class);
                 startActivity(doPausaIntent);
+            }
+        });
+
+        pausaStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_login_home_to_nav_pausas_status);
             }
         });
 
