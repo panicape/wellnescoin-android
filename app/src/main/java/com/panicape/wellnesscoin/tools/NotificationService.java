@@ -18,12 +18,21 @@ import androidx.core.app.NotificationCompat;
 import com.panicape.wellnesscoin.MainActivity;
 import com.panicape.wellnesscoin.R;
 
+
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class NotificationService extends IntentService {
 
     private NotificationManager notificationManager;
     private PendingIntent pendingIntent;
     private static final int NOTIFICATION_ID = 1;
     Notification notification;
+
+
+    // Methods
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.

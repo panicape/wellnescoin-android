@@ -16,6 +16,8 @@ import com.google.firebase.messaging.RemoteMessage;
  */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    // Methods
+
     /**
      * Method onNewToken
      * @param s
@@ -27,8 +29,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.i("Token", "Mi token es: " + s);
 
     }
-
-
 
     /**
      *

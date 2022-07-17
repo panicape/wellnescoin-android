@@ -7,6 +7,12 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class WalletHelpActivity extends AppCompatActivity {
 
     private ImageButton nextBtn;
@@ -28,4 +34,5 @@ public class WalletHelpActivity extends AppCompatActivity {
             }
         });
     }
+
 }

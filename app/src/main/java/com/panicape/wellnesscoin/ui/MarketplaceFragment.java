@@ -14,6 +14,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.MarketplaceFragmentBinding;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class MarketplaceFragment extends Fragment {
 
     private MarketplaceViewModel mViewModel;

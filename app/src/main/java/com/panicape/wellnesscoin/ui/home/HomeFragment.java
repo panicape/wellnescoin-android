@@ -18,6 +18,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.panicape.wellnesscoin.databinding.FragmentHomeBinding;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -29,6 +34,9 @@ public class HomeFragment extends Fragment {
     private float mScale = 1f;
     private ScaleGestureDetector scaleGestureDetector;
     GestureDetector gestureDetector;
+
+
+    // Methods
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,8 +86,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-
         return root;
     }
 
@@ -92,10 +98,10 @@ public class HomeFragment extends Fragment {
         return gestureDetector.onTouchEvent(event);
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 }

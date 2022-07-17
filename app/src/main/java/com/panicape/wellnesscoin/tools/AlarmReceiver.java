@@ -7,7 +7,14 @@ import android.net.Uri;
 
 import androidx.core.content.ContextCompat;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class AlarmReceiver extends BroadcastReceiver {
+
+    //Methods
 
     @Override
     public void onReceive(Context context, Intent intent) {

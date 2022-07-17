@@ -12,11 +12,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.panicape.wellnesscoin.databinding.FragmentWalletBinding;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class WalletFragment extends Fragment {
 
     private WalletViewModel slideshowViewModel;
     private FragmentWalletBinding binding;
     private WebView walletWebView;
+
 
     // Methods
 

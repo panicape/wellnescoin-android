@@ -21,6 +21,11 @@ import com.panicape.wellnesscoin.databinding.MainFragmentBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class MainFragment extends Fragment {
 
     private MainViewModel mViewModel;

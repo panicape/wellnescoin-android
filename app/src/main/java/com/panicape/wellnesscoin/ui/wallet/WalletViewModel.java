@@ -7,6 +7,11 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class WalletViewModel extends ViewModel {
 
     private MutableLiveData<String> mWalletValue;

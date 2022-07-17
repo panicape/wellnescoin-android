@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * create an instance of this fragment.
+ *
+ * @author panicape
+ * @version 0.01 May 2022
  */
 public class PausasStatusFragment extends Fragment {
 

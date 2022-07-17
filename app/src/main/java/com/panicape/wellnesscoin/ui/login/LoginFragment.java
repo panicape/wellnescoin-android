@@ -26,6 +26,11 @@ import com.panicape.wellnesscoin.HelpMainActivity;
 import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentLoginBinding;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class LoginFragment extends Fragment {
 
     private LoginViewModel loginViewModel;

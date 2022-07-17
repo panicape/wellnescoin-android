@@ -7,14 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class ValidatePausasMain extends AppCompatActivity {
 
     private List<String> pausas;
 
 
     // Methods
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

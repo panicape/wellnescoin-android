@@ -17,8 +17,9 @@ import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentLoginMainBinding;
 
 /**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ *
+ * @author panicape
+ * @version 0.01 May 2022
  */
 public class LoginMainFragment extends Fragment {
 

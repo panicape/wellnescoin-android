@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModelProvider;
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
  * Required given LoginViewModel has a non-empty constructor
+ *
+ * @author panicape
+ * @version 0.01 May 2022
  */
 public class LoginViewModelFactory implements ViewModelProvider.Factory {
 

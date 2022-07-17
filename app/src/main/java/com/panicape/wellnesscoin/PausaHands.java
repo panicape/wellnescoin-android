@@ -42,6 +42,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class PausaHands extends AppCompatActivity {
 
     /**

@@ -19,6 +19,11 @@ import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ *
+ * @author panicape
+ * @version 0.01 May 2022
+ */
 public class HelpMainActivity extends AppCompatActivity implements View.OnTouchListener {
 
     private ImageView infographicMain;
