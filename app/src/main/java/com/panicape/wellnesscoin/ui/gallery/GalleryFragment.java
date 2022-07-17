@@ -2,6 +2,8 @@ package com.panicape.wellnesscoin.ui.gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentGalleryBinding;
 
 /**
@@ -48,6 +51,8 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        setHasOptionsMenu(true);
+
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         profEmailValue = binding.profEmailVal;
         profEmailValue.setText(email);
@@ -69,6 +74,7 @@ public class GalleryFragment extends Fragment {
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
+
                         if (document.exists()) {
                             profNameValue.setText(document.getData().get ("name").toString());
                             profUsernameValue.setText(document.getData().get ("username").toString());
@@ -84,8 +90,33 @@ public class GalleryFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        MenuItem loginItem = menu.findItem(R.id.action_login);
+        MenuItem helpItem =  menu.findItem(R.id.action_info);
+        MenuItem settingsItem =  menu.findItem(R.id.action_settings);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem logoffItem = menu.findItem(R.id.action_logoff);
+        MenuItem exitItem = menu.findItem(R.id.action_exit);
+
+        exitItem.setVisible(true);
+        settingsItem.setVisible(true);
+        logoffItem.setVisible(true);
+        profileItem.setVisible(false);
+        mainItem.setVisible(true);
+
+        helpItem.setVisible(false);
+        webItem.setVisible(false);
+
+        loginItem.setVisible(false);
+    }
+
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 }

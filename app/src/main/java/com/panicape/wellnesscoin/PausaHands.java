@@ -117,32 +117,36 @@ public class PausaHands extends AppCompatActivity {
     private Uri videoUri;
 
 
+    // Methods
+
     @Override
     protected void onStart() {
         super.onStart();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         if (firebaseUser == null) {
             Toast.makeText(this, "No se ha detectado usuario conectado", Toast.LENGTH_SHORT);
             startActivity(new Intent(this, MainActivity.class));
         } else {
-            System.out.println("CURRENT="+firebaseUser.getEmail());
+            Log.i("PausaHands: ", "CURRENT="+firebaseUser.getEmail());
+
             mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    for(DataSnapshot element: snapshot.child("Users").getChildren()) {
+                    snapshot.child("Users").getChildren().forEach(element -> {
                         if (element.child(element.getKey()).child("mail").exists() &&
                                 element.child(element.getKey()).child("mail").equals(firebaseUser.getEmail())) {
-                            System.out.println("USER FOUND: " + element.getKey());
+                            Log.i("PausaHands: ", "USER FOUND: " + element.getKey());
                             username = element.getKey();
                         }
-                    }
+                    });
+
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Log.e("PausaHands: ", "Pausa Cancelada. Error="+error.getMessage());
                 }
             });
         }

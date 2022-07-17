@@ -19,7 +19,6 @@ import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.panicape.wellnesscoin.HelpMainActivity;
@@ -54,6 +53,7 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 
@@ -74,17 +74,11 @@ public class LoginFragment extends Fragment {
         logInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingProgressBar.setVisibility(View.INVISIBLE);
+
                 Intent infoIntent = new Intent(getActivity(), HelpMainActivity.class);
                 startActivity(infoIntent);
 
-                NavigationView navigationView = v.getRootView().findViewById(R.id.nav_view);
-
-                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
-                navigationView.getMenu().findItem(R.id.nav_gallery).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_marketplace).setVisible(false);
-                navigationView.getMenu().findItem(R.id.nav_login_main).setVisible(false);
-
-                loadingProgressBar.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -98,12 +92,6 @@ public class LoginFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             showLoginMsg("Bienvenido/a");
-
-                            NavigationView navigationView = (NavigationView) v.getRootView().findViewById(R.id.nav_view);
-                            navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
-                            navigationView.getMenu().findItem(R.id.nav_gallery).setVisible(true);
-                            navigationView.getMenu().findItem(R.id.nav_marketplace).setVisible(true);
-                            navigationView.getMenu().findItem(R.id.nav_login_main).setVisible(true);
 
                             loadingProgressBar.setVisibility(View.INVISIBLE);
 

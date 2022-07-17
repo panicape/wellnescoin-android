@@ -88,37 +88,15 @@ public class MainActivity extends AppCompatActivity {
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
 
-        int id = navController.getCurrentDestination().getId();
+        helpItem.setVisible(true);
+        webItem.setVisible(true);
+        exitItem.setVisible(true);
 
-        switch (id) {
-            case R.id.nav_login:
-                helpItem.setVisible(true);
-                webItem.setVisible(true);
-                exitItem.setVisible(true);
-
-                loginItem.setVisible(false);
-                mainItem.setVisible(false);
-                logoffItem.setVisible(false);
-                settingsItem.setVisible(false);
-                profileItem.setVisible(false);
-
-                break;
-            case R.id.nav_login_main:
-                exitItem.setVisible(true);
-
-                helpItem.setVisible(false);
-                webItem.setVisible(false);
-                loginItem.setVisible(false);
-                mainItem.setVisible(false);
-                settingsItem.setVisible(false);
-
-                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    logoffItem.setVisible(true);
-                    profileItem.setVisible(true);
-                }
-
-                break;
-        }
+        loginItem.setVisible(false);
+        mainItem.setVisible(false);
+        logoffItem.setVisible(false);
+        settingsItem.setVisible(false);
+        profileItem.setVisible(false);
 
         return true;
     }
@@ -130,15 +108,18 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Toast.makeText(this, "No esta implementado todavia",
-                        Toast.LENGTH_SHORT).show();
+                Intent settingsIntent = new Intent(this, ConfigActivity.class);
+                startActivity(settingsIntent);
                 return true;
+
 //            case R.id.action_validar_pausas:
 //                Intent intent = new Intent(this, ValidatePausaActivity.class);
 //                startActivity(intent);
@@ -147,14 +128,23 @@ public class MainActivity extends AppCompatActivity {
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
                 startActivity(infoIntent);
                 return true;
+
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
                 startActivity(webIntent);
                 return true;
+
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 return true;
+
+            case R.id.action_logoff:
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);
+                navController.navigate(R.id.login);
+                return true;
+
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     navController.navigate(R.id.nav_gallery);
@@ -174,6 +164,13 @@ public class MainActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.nav_login:
+                Toast.makeText(this, "Hasta pronto", Toast.LENGTH_SHORT);
+                finish();
+
+                break;
+            case R.id.nav_login_main:
+                Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);
+                FirebaseAuth.getInstance().signOut();
                 finish();
 
                 break;
@@ -188,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
             default:
                 FirebaseAuth.getInstance().signOut();
+                Toast.makeText(this, "Seión Cerrada", Toast.LENGTH_SHORT);
                 navController.navigate(R.id.nav_login);
 
                 break;

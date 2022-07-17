@@ -3,6 +3,8 @@ package com.panicape.wellnesscoin.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,6 +42,7 @@ public class LoginMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentLoginMainBinding.inflate(inflater, container, false);
+        setHasOptionsMenu(true);
         return binding.getRoot();
     }
 
@@ -70,6 +73,30 @@ public class LoginMainFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_nav_login_home_to_nav_marketplace);
             }
         });
+    }
+
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        MenuItem loginItem = menu.findItem(R.id.action_login);
+        MenuItem helpItem =  menu.findItem(R.id.action_info);
+        MenuItem settingsItem =  menu.findItem(R.id.action_settings);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem logoffItem = menu.findItem(R.id.action_logoff);
+        MenuItem exitItem = menu.findItem(R.id.action_exit);
+
+        exitItem.setVisible(true);
+        settingsItem.setVisible(true);
+        logoffItem.setVisible(true);
+        profileItem.setVisible(true);
+
+        helpItem.setVisible(false);
+        webItem.setVisible(false);
+
+        loginItem.setVisible(false);
+        mainItem.setVisible(false);
     }
 
 }
