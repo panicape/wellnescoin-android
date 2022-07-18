@@ -310,6 +310,8 @@ public class PausaHands extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("frag", "home");
 
     }
 }

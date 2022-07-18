@@ -1,22 +1,29 @@
 package com.panicape.wellnesscoin.ui;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentPausasStatusBinding;
+import com.panicape.wellnesscoin.tools.AlarmReceiver;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 /**
  *
@@ -25,26 +32,24 @@ import java.util.List;
  */
 public class PausasStatusFragment extends Fragment {
 
-    private List<String> pausas;
-
     private FragmentPausasStatusBinding binding;
 
-    private ListView pausasStatusLV;
+    private EditText intervalET;
+
+    private AlarmManager alarmMgr;
+
+    private static final int alarmId = 1;
+
+    private Switch enableAlarm;
 
 
     // Constructor
 
     public PausasStatusFragment() {
-        pausas = new ArrayList<>();
-
-        pausas.add("pcarrillo_060620221522");
-        pausas.add("pcarrillo_060620221109");
-        pausas.add("pcarrillo_060620221731");
     }
 
 
     // Methods
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,10 +58,69 @@ public class PausasStatusFragment extends Fragment {
         View root = binding.getRoot();
 
         setHasOptionsMenu(true);
-        pausasStatusLV = binding.pausaStatusListLV;
-        ArrayAdapter adapter = new ArrayAdapter(container.getContext(),
-                android.R.layout.simple_list_item_1, pausas);
-        pausasStatusLV.setAdapter(adapter);
+
+        alarmMgr =
+                (AlarmManager) root.getContext().getSystemService(Context.ALARM_SERVICE);
+
+        enableAlarm = binding.psEnabeNotifications;
+        intervalET = binding.alarmIntervalET;
+
+        enableAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    boolean canActivate = false;
+
+                    Calendar calendar = Calendar.getInstance();
+                    int hour = 0;
+                    hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+                    if (intervalET.getText() == null || intervalET.getText().equals("")) {
+                        hour += 2;
+                        canActivate = true;
+                    } else {
+                        Integer result = Integer.getInteger(intervalET.getText().toString());
+                        if (result >= 1 && result <= 8) {
+                            Toast.makeText(buttonView.getContext(),
+                                    "El intervalo de tiempo tiene que ser entre 1 y 8 horas",
+                                    Toast.LENGTH_SHORT);
+                            canActivate = false;
+                        } else {
+                            canActivate = true;
+                            hour += result;
+                        }
+                    }
+
+                    if (canActivate) {
+                        setAlarm(buttonView.getContext(), calendar);
+
+                        if (hour <= 24) {
+                            calendar.set(Calendar.HOUR_OF_DAY, hour);
+                        } else {
+                            int newResult = hour - 24;
+                            int currentDay = calendar.get(calendar.DAY_OF_MONTH);
+                            calendar.set(Calendar.DAY_OF_MONTH, currentDay + 1);
+                            calendar.set(Calendar.HOUR_OF_DAY, newResult);
+
+                            hour = newResult;
+                        }
+
+                        Toast.makeText(buttonView.getContext(),
+                                "Alarma activada: "
+                                        + calendar.get(Calendar.YEAR)+"-"+
+                                        calendar.get(Calendar.MONTH)+"-"+
+                                        calendar.get(Calendar.DAY_OF_MONTH)+" "+
+                                        (hour) + ":" +
+                                        calendar.get(Calendar.MINUTE),
+                                Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    stopAlarm(buttonView.getContext());
+                    Toast.makeText(buttonView.getContext(), "Alarma desactivada",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return root;
     }
@@ -83,6 +147,29 @@ public class PausasStatusFragment extends Fragment {
         webItem.setVisible(false);
 
         loginItem.setVisible(false);
+    }
+
+
+    public void setAlarm(Context ctx, Calendar calendar) {
+        // With setInexactRepeating(), you have to use one of the AlarmManager interval
+        // constants--in this case, AlarmManager.INTERVAL_DAY.
+
+        Intent alarmIntent = new Intent(ctx, AlarmReceiver.class);
+        PendingIntent pendingIntent;
+        pendingIntent = PendingIntent.getBroadcast(ctx, alarmId, alarmIntent,
+                PendingIntent.FLAG_ONE_SHOT);
+        alarmIntent.setData((Uri.parse("custom://" + calendar.getTimeInMillis())));
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+//        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+//                AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    public static void stopAlarm(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+                alarmIntent, 0);
+        alarmManager.cancel(pendingIntent);
     }
 
 }

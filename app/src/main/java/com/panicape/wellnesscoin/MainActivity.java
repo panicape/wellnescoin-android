@@ -65,6 +65,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        if (getIntent().getExtras()!=null) {
+            if (getIntent().getExtras().get("frag") != null) {
+                String frag = getIntent().getExtras().get("frag").toString();
+                switch (frag) {
+                    case "profile":
+                        navController.navigate(R.id.nav_gallery);
+                        break;
+                    case "home":
+                        navController.navigate(R.id.nav_login_main);
+                        break;
+                }
+            }
+        }
+
+
     }
 
 

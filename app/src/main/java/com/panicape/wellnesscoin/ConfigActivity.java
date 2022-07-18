@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.panicape.wellnesscoin.tools.AlarmReceiver;
@@ -23,7 +21,7 @@ import com.panicape.wellnesscoin.tools.AlarmReceiver;
 import java.util.Calendar;
 
 /**
- *
+ * Screen to configure app elements
  * @author panicape
  * @version 0.01 May 2022
  */
@@ -75,13 +73,12 @@ public class ConfigActivity extends AppCompatActivity {
     }
 
     public void setAlarm(Context ctx, Calendar calendar) {
-
         // With setInexactRepeating(), you have to use one of the AlarmManager interval
         // constants--in this case, AlarmManager.INTERVAL_DAY.
 
         Intent alarmIntent = new Intent(ctx, AlarmReceiver.class);
         PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(this, alarmId, alarmIntent,
+        pendingIntent = PendingIntent.getBroadcast(ctx, alarmId, alarmIntent,
                 PendingIntent.FLAG_ONE_SHOT);
         alarmIntent.setData((Uri.parse("custom://" + calendar.getTimeInMillis())));
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
@@ -130,13 +127,7 @@ public class ConfigActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-
         switch (item.getItemId()) {
-//            case R.id.action_validar_pausas:
-//                Intent intent = new Intent(this, ValidatePausaActivity.class);
-//                startActivity(intent);
-//                return true;
             case  R.id.action_info:
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
                 startActivity(infoIntent);
@@ -154,7 +145,9 @@ public class ConfigActivity extends AppCompatActivity {
 
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    navController.navigate(R.id.nav_gallery);
+                    Intent mainIntent = new Intent(this, MainActivity.class);
+                    mainIntent.putExtra("frag", "profile");
+                    startActivity(mainIntent);
                 } else {
                     Toast.makeText(this,
                             "No se ha encontrado usuario conectado",
