@@ -66,15 +66,21 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        if (getIntent().getExtras()!=null) {
+        if (getIntent().getExtras() != null) {
             if (getIntent().getExtras().get("frag") != null) {
                 String frag = getIntent().getExtras().get("frag").toString();
                 switch (frag) {
+                    case "login":
+                        navController.navigate(R.id.nav_login);
+                        break;
                     case "profile":
                         navController.navigate(R.id.nav_gallery);
                         break;
                     case "home":
                         navController.navigate(R.id.nav_login_main);
+                        break;
+                    case "marketplace":
+                        navController.navigate(R.id.nav_marketplace);
                         break;
                 }
             }
@@ -82,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -94,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
-
         MenuItem loginItem = menu.findItem(R.id.action_login);
         MenuItem helpItem =  menu.findItem(R.id.action_info);
         MenuItem settingsItem =  menu.findItem(R.id.action_settings);
@@ -103,12 +106,14 @@ public class MainActivity extends AppCompatActivity {
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem backItem = menu.findItem(R.id.action_back);
 
         helpItem.setVisible(true);
         webItem.setVisible(true);
         exitItem.setVisible(true);
 
         loginItem.setVisible(false);
+        backItem.setVisible(false);
         mainItem.setVisible(false);
         logoffItem.setVisible(false);
         settingsItem.setVisible(false);
@@ -123,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

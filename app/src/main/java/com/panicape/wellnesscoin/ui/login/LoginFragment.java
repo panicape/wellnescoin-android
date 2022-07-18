@@ -78,7 +78,6 @@ public class LoginFragment extends Fragment {
 
                 Intent infoIntent = new Intent(getActivity(), HelpMainActivity.class);
                 startActivity(infoIntent);
-
             }
         });
 

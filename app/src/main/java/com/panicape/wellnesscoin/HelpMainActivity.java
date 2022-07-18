@@ -14,8 +14,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -58,15 +56,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
         infographicMain = (ImageView) findViewById(R.id.infographicLogin);
         infographicMain.setOnTouchListener(this);
-
-        nexthelpBtn = findViewById(R.id.nextHelpBtn);
-        nexthelpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent pausaHelpIntent = new Intent(v.getContext(), Pausa_help_activity.class);
-                startActivity(pausaHelpIntent);
-            }
-        });
     }
 
     @Override
@@ -91,7 +80,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
                 break;
 
             case MotionEvent.ACTION_POINTER_UP: // second finger lifted
-
                 mode = NONE;
                 Log.d(TAG, "mode=NONE");
                 break;
@@ -189,10 +177,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
     }
 
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -209,15 +194,17 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem exitItem = menu.findItem(R.id.action_exit);
 
         MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem backItem = menu.findItem(R.id.action_back);
         MenuItem profileItem = menu.findItem(R.id.action_profile);
         MenuItem infoItem = menu.findItem(R.id.action_info);
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
-        loginItem.setVisible(true);
         exitItem.setVisible(true);
         webItem.setVisible(true);
+        backItem.setVisible(true);
 
+        loginItem.setVisible(false);
         mainItem.setVisible(false);
         logoffItem.setVisible(false);
         infoItem.setVisible(false);
@@ -225,11 +212,9 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         profileItem.setVisible(false);
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-            loginItem.setVisible(true);
             profileItem.setVisible(false);
             logoffItem.setVisible(false);
         } else {
-            loginItem.setVisible(false);
             profileItem.setVisible(true);
             logoffItem.setVisible(true);
         }
@@ -238,15 +223,17 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        NavController navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_content_main);
-
         boolean response = false;
 
         switch (item.getItemId()) {
-            case R.id.action_login:
-                FirebaseAuth.getInstance().signOut();
-                navController.navigate(R.id.nav_login);
+            case R.id.action_back:
+                Intent mainIntent = new Intent(this, MainActivity.class);
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    mainIntent.putExtra("frag","login");
+                } else {
+                    mainIntent.putExtra("frag","home");
+                }
+                startActivity(mainIntent);
 
                 response = true;
                 break;
@@ -258,7 +245,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
                 break;
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
-                finish();
+                System.exit(0);
 
                 response = true;
                 break;

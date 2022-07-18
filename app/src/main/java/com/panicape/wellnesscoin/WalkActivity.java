@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.panicape.wellnesscoin.persistence.model.PausaRegistryDto;
@@ -170,8 +168,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Toast.makeText(this, "No esta implementado todavia",
@@ -205,7 +201,9 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
                 return true;
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    navController.navigate(R.id.nav_gallery);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("frag", "profile");
+                    startActivity(intent);
                 } else {
                     Toast.makeText(this, "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
                 }
@@ -216,6 +214,8 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onBackPressed() {
-
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("frag", "home");
+        startActivity(intent);
     }
 }

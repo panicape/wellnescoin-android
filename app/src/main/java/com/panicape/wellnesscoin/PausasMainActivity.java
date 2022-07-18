@@ -33,18 +33,20 @@ public class PausasMainActivity extends AppCompatActivity {
                     Intent video = new Intent(this, PausaHands.class);
                     startActivity(video);
                 }
-                    break;
+                break;
             case R.id.radio_pausa_walk:
                 if (checked) {
                     Intent video = new Intent(this, WalkActivity.class);
                     startActivity(video);
                 }
-                    break;
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
-
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("frag", "home");
+        startActivity(intent);
     }
 }

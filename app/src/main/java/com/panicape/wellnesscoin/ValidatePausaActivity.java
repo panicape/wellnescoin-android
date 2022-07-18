@@ -1,5 +1,6 @@
 package com.panicape.wellnesscoin;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,9 @@ public class ValidatePausaActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("frag", "home");
+        startActivity(intent);
     }
 
 }

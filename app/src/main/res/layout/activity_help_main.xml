@@ -19,9 +19,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="405dp"
-        android:layout_height="600dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="603dp"
+        android:layout_marginTop="30dp"
         android:contentDescription="@string/large_text"
         android:fillViewport="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="800dp"
             android:orientation="vertical">
 
             <ImageView
@@ -41,15 +41,4 @@
         </LinearLayout>
     </ScrollView>
 
-    <ImageButton
-        android:id="@+id/nextHelpBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toEndOf="@+id/helpMainTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_ff"
-        tools:ignore="ImageContrastCheck"
-        android:contentDescription="@string/next_help" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,14 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -31,14 +27,6 @@ public class Pausa_help_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pausa_help);
-
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nextHelp = new Intent(v.getContext(), WalletHelpActivity.class);
-                startActivity(nextHelp);
-            }
-        });
     }
 
     @Override
@@ -54,13 +42,16 @@ public class Pausa_help_activity extends AppCompatActivity {
         MenuItem loginItem = menu.findItem(R.id.action_login);
         MenuItem profileItem = menu.findItem(R.id.action_profile);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
+        MenuItem backItem = menu.findItem(R.id.action_back);
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-            loginItem.setVisible(true);
+            backItem.setVisible(true);
+            loginItem.setVisible(false);
             profileItem.setVisible(false);
             logoffItem.setVisible(false);
         } else {
             loginItem.setVisible(false);
+            backItem.setVisible(true);
             profileItem.setVisible(true);
             logoffItem.setVisible(true);
         }
@@ -69,27 +60,38 @@ public class Pausa_help_activity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-
         switch (item.getItemId()) {
+            case R.id.action_back:
+                Intent intent = new Intent(this, MainActivity.class);
+                if (FirebaseAuth.getInstance().getCurrentUser()==null) {
+                    intent.putExtra("frag", "login");
+                } else {
+                    intent.putExtra("frag", "home");
+                }
+
+                startActivity(intent);
+                break;
+
             case R.id.action_settings:
-                Toast.makeText(this, "No esta implementado todavia",
-                        Toast.LENGTH_SHORT).show();
+                Intent configIntent = new Intent(this, ConfigActivity.class);
+                startActivity(configIntent);
                 return true;
 
             case R.id.action_exit:
                 MenuItem mainMenuItem =  findViewById(R.id.action_main);
                 MenuItem loginItem = findViewById(R.id.action_login);
+                MenuItem backItem = findViewById(R.id.action_back);
                 MenuItem profileItem = findViewById(R.id.action_profile);
                 MenuItem logoffItem = findViewById(R.id.action_logoff);
 
-                loginItem.setVisible(true);
+                backItem.setVisible(true);
+                loginItem.setVisible(false);
                 mainMenuItem.setVisible(false);
                 logoffItem.setVisible(false);
                 profileItem.setVisible(false);
 
                 FirebaseAuth.getInstance().signOut();
-                finish();
+                System.exit(1);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -97,7 +99,7 @@ public class Pausa_help_activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent backIntent = new Intent(this, HelpMainActivity.class);
-        startActivity(backIntent);
+        Intent intent = new Intent(this, HelpMainActivity.class);
+        startActivity(intent);
     }
 }

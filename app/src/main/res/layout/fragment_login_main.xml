@@ -127,7 +127,8 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:contentDescription="Logo temporal para marketplace y wallet"
-                    android:src="@drawable/paginaweb" />
+                    android:src="@drawable/paginaweb"
+                    tools:srcCompat="@drawable/marketplace" />
 
                 <TextView
                     android:id="@+id/opt3Title"

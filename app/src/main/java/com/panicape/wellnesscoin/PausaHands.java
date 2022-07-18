@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -79,14 +81,10 @@ public class PausaHands extends AppCompatActivity {
      */
     private VideoView videoView;
 
-    /**
-     * Video Saving Request Code
-     */
+    /** Video Saving Request Code */
     static final int REQUEST_VIDEO_CAPTURE = 1;
 
-    /**
-     * StorageReference component
-     */
+    /** StorageReference component */
     private StorageReference mStorageRef;
 
     /** Resource mDatabase */
@@ -96,24 +94,16 @@ public class PausaHands extends AppCompatActivity {
 
     private String username;
 
-    /**
-     * progress bar component
-     */
-    private ProgressBar p;
-
-    /**
-     *
-     */
     private Button saveHandsBtn;
+
+    /** progress bar component */
+    private ProgressBar p;
 
     /**
      * activityResultLauncher. Component to Launch an action of record video
      */
     ActivityResultLauncher<Intent> activityResultLauncher;
 
-    /**
-     * progress bar component
-     */
     private Uri videoUri;
 
 
@@ -268,8 +258,6 @@ public class PausaHands extends AppCompatActivity {
         p.setVisibility(View.GONE);
     }
 
-
-
     public boolean validarPermisos() {
         return ContextCompat.checkSelfPermission(PausaHands.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(PausaHands.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
@@ -309,9 +297,66 @@ public class PausaHands extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
+        MenuItem loginItem = menu.findItem(R.id.action_login);
+        MenuItem helpItem =  menu.findItem(R.id.action_info);
+        MenuItem settingsItem =  menu.findItem(R.id.action_settings);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem logoffItem = menu.findItem(R.id.action_logoff);
+        MenuItem exitItem = menu.findItem(R.id.action_exit);
+
+        webItem.setVisible(true);
+        exitItem.setVisible(true);
+        mainItem.setVisible(true);
+        logoffItem.setVisible(true);
+        profileItem.setVisible(true);
+
+        helpItem.setVisible(false);
+        loginItem.setVisible(false);
+        settingsItem.setVisible(false);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case  R.id.action_info:
+                Intent infoIntent = new Intent(this, HelpMainActivity.class);
+                startActivity(infoIntent);
+                return true;
+
+            case R.id.action_web:
+                Intent webIntent = new Intent(this, WebActivity.class);
+                startActivity(webIntent);
+                return true;
+
+            case R.id.action_exit:
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                return true;
+
+            case R.id.action_profile:
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    Intent mainIntent = new Intent(this, MainActivity.class);
+                    mainIntent.putExtra("frag", "profile");
+                    startActivity(mainIntent);
+                } else {
+                    Toast.makeText(this,
+                            "No se ha encontrado usuario conectado",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("frag", "home");
-
+        startActivity(intent);
     }
 }
