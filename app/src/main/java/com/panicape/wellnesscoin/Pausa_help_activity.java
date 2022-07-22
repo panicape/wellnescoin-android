@@ -38,7 +38,8 @@ public class Pausa_help_activity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {MenuItem loginItem = menu.findItem(R.id.action_login);
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem loginItem = menu.findItem(R.id.action_login);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem nextItem = menu.findItem(R.id.action_next);

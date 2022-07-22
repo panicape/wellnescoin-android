@@ -38,25 +38,36 @@ public class ConfigActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
         MenuItem loginItem = menu.findItem(R.id.action_login);
-        MenuItem helpItem =  menu.findItem(R.id.action_info);
-        MenuItem settingsItem =  menu.findItem(R.id.action_settings);
-        MenuItem profileItem = menu.findItem(R.id.action_profile);
-        MenuItem webItem = menu.findItem(R.id.action_web);
-        MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem nextItem = menu.findItem(R.id.action_next);
 
-        nextItem.setVisible(false);
-        webItem.setVisible(true);
-        exitItem.setVisible(true);
-        mainItem.setVisible(true);
-        logoffItem.setVisible(true);
-        profileItem.setVisible(true);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem backItem = menu.findItem(R.id.action_back);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem infoItem = menu.findItem(R.id.action_info);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem configItem = menu.findItem(R.id.action_settings);
 
-        helpItem.setVisible(false);
+        nextItem.setVisible(true);
+        exitItem.setVisible(true);
+        webItem.setVisible(true);
+        backItem.setVisible(true);
+
         loginItem.setVisible(false);
-        settingsItem.setVisible(false);
+        mainItem.setVisible(false);
+        logoffItem.setVisible(false);
+        infoItem.setVisible(false);
+        configItem.setVisible(false);
+        profileItem.setVisible(false);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            profileItem.setVisible(false);
+            logoffItem.setVisible(false);
+        } else {
+            profileItem.setVisible(true);
+            logoffItem.setVisible(true);
+        }
 
         return true;
     }

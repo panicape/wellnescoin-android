@@ -193,7 +193,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem nextItem = menu.findItem(R.id.action_next);
-        nextItem.setVisible(true);
 
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem backItem = menu.findItem(R.id.action_back);
@@ -202,6 +201,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
+        nextItem.setVisible(true);
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);
@@ -266,7 +266,9 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
     @Override
     public void onBackPressed() {
+        finishAfterTransition();
         Intent mainIntent = new Intent(this, MainActivity.class);
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             mainIntent.putExtra("frag","login");
         } else {
