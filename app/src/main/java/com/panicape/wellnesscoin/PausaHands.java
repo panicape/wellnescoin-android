@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -106,6 +105,8 @@ public class PausaHands extends AppCompatActivity {
 
     private Uri videoUri;
 
+    private boolean isVideoSaved;
+
 
     // Methods
 
@@ -147,6 +148,7 @@ public class PausaHands extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pausa_hands);
 
+        isVideoSaved = false;
         if (!validarPermisos()) {
             ActivityCompat.requestPermissions(PausaHands.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -190,8 +192,6 @@ public class PausaHands extends AppCompatActivity {
                             Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                             String timestamp = "" + System.currentTimeMillis();
 
-
-
                             while (!uriTask.isSuccessful()) {
                                 // URl del video subido
                                 Task<Uri> downloadedUri = taskSnapshot.getStorage().getDownloadUrl();
@@ -216,7 +216,10 @@ public class PausaHands extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "Pausa Guardada", Toast.LENGTH_SHORT).show();
                                         Log.i("VIDEO", "Video uploaded");
 
-                                        Intent homeActivity = new Intent(PausaHands.this, MainActivity.class);
+                                        isVideoSaved = true;
+
+                                        Intent homeActivity = new Intent(PausaHands.this,
+                                                PausasMainActivity.class);
                                         p.setVisibility(View.GONE);
                                         startActivity(homeActivity);
                                     }
@@ -228,8 +231,13 @@ public class PausaHands extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         p.setVisibility(View.GONE);
-                                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        Log.e("ERROR", "PausaHands: savePausaBtn1 Button: " + e.getMessage());
+                                        Toast.makeText(getApplicationContext(),
+                                                "Error: " + e.getMessage(),
+                                                Toast.LENGTH_SHORT).show();
+                                        Log.e("ERROR",
+                                                "PausaHands: savePausaBtn1 Button: "
+                                                        + e.getMessage());
+                                        isVideoSaved=false;
                                     }
                                 });
                             }
@@ -244,12 +252,17 @@ public class PausaHands extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             p.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            isVideoSaved=true;
                         }
                     });
                 } else {
                     Log.i("ERROR", "Video no guardado. Uri=null");
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Error. Video no guardado",
+                            Toast.LENGTH_SHORT).show();
+                    isVideoSaved=true;
                 }
             }
         });
@@ -259,10 +272,14 @@ public class PausaHands extends AppCompatActivity {
     }
 
     public boolean validarPermisos() {
-        return ContextCompat.checkSelfPermission(PausaHands.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(PausaHands.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(PausaHands.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(PausaHands.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(PausaHands.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(PausaHands.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(PausaHands.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(PausaHands.this,
+                        Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void recordPausaVideo (View view) {
@@ -271,52 +288,27 @@ public class PausaHands extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("¿Desea cancelar la pausa?");
-            builder.setTitle("Cancelar");
-            builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Intent intent = new Intent(PausaHands.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
     public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
         MenuItem loginItem = menu.findItem(R.id.action_login);
-        MenuItem helpItem =  menu.findItem(R.id.action_info);
+        MenuItem infoItem =  menu.findItem(R.id.action_info);
         MenuItem settingsItem =  menu.findItem(R.id.action_settings);
         MenuItem profileItem = menu.findItem(R.id.action_profile);
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem backItem = menu.findItem(R.id.action_back);
         MenuItem nextItem = menu.findItem(R.id.action_next);
 
-        nextItem.setVisible(false);
-
+        backItem.setVisible(true);
         webItem.setVisible(true);
-        exitItem.setVisible(true);
-        mainItem.setVisible(true);
         logoffItem.setVisible(true);
         profileItem.setVisible(true);
+        exitItem.setVisible(true);
 
-        helpItem.setVisible(false);
+        mainItem.setVisible(false);
+        nextItem.setVisible(false);
+        infoItem.setVisible(false);
         loginItem.setVisible(false);
         settingsItem.setVisible(false);
 
@@ -326,19 +318,35 @@ public class PausaHands extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case  R.id.action_info:
-                Intent infoIntent = new Intent(this, HelpMainActivity.class);
-                startActivity(infoIntent);
+            case  R.id.action_back:
+                Intent backIntent = new Intent(this, PausasMainActivity.class);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setCancelable(true);
+                builder.setTitle("Cancelar Pausa?");
+                builder.setMessage("¿Desea cancelar la pausa?");
+                builder.setPositiveButton("Si",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finishAfterTransition();
+                                startActivity(backIntent);
+                            }
+                        });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
                 return true;
 
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
                 startActivity(webIntent);
-                return true;
-
-            case R.id.action_exit:
-                FirebaseAuth.getInstance().signOut();
-                finish();
                 return true;
 
             case R.id.action_profile:
@@ -351,6 +359,17 @@ public class PausaHands extends AppCompatActivity {
                             "No se ha encontrado usuario conectado",
                             Toast.LENGTH_SHORT).show();
                 }
+
+                return true;
+
+            case R.id.action_logoff:
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                return true;
+
+            case R.id.action_exit:
+                FirebaseAuth.getInstance().signOut();
+                System.exit(0);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -358,10 +377,37 @@ public class PausaHands extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("frag", "home");
+        Intent backIntent = new Intent(this, PausasMainActivity.class);
 
-        finishAfterTransition();
-        startActivity(intent);
+        if (videoUri != null) {
+            if(isVideoSaved) {
+                finishAfterTransition();
+                startActivity(backIntent);
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setCancelable(true);
+                builder.setTitle("Cancelar Pausa?");
+                builder.setMessage("¿Desea cancelar la pausa?");
+                builder.setPositiveButton("Si",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finishAfterTransition();
+                                startActivity(backIntent);
+                            }
+                        });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        } else {
+            finishAfterTransition();
+            startActivity(backIntent);
+        }
     }
 }

@@ -63,26 +63,29 @@ public class ValidatePausasMain extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        boolean response = false;
 
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Toast.makeText(this, "No esta implementado todavia",
-                        Toast.LENGTH_SHORT).show();
-                return true;
-//            case R.id.action_validar_pausas:
-//                Intent intent = new Intent(this, ValidatePausaActivity.class);
-//                startActivity(intent);
-//                return true;
+                Intent configIntent = new Intent(this, ConfigActivity.class);
+                startActivity(configIntent);
+                response= true;
+                break;
+
             case  R.id.action_info:
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
                 finishAfterTransition();
                 startActivity(infoIntent);
-                return true;
+                response= true;
+                break;
+
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
                 finishAfterTransition();
                 startActivity(webIntent);
-                return true;
+                response= true;
+                break;
+
             case R.id.action_exit:
                 MenuItem mainMenuItem =  findViewById(R.id.action_main);
                 MenuItem loginItem = findViewById(R.id.action_login);
@@ -97,7 +100,9 @@ public class ValidatePausasMain extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 System.exit(0);
 
-                return true;
+                response= true;
+                break;
+
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     Intent intent = new Intent(this, MainActivity.class);
@@ -107,16 +112,20 @@ public class ValidatePausasMain extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
                 }
-                return true;
+                response= true;
+                break;
         }
-        return super.onOptionsItemSelected(item);
+
+        return response;
     }
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
+
         intent.putExtra("frag", "home");
         finishAfterTransition();
+
         startActivity(intent);
     }
 }

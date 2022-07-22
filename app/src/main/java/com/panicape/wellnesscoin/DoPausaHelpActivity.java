@@ -195,11 +195,11 @@ public class DoPausaHelpActivity extends AppCompatActivity implements View.OnTou
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);
+        infoItem.setVisible(true);
 
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         logoffItem.setVisible(false);
-        infoItem.setVisible(false);
         configItem.setVisible(false);
         profileItem.setVisible(false);
 
@@ -248,7 +248,17 @@ public class DoPausaHelpActivity extends AppCompatActivity implements View.OnTou
                 break;
             case R.id.action_next:
                 Intent nextIntent = new Intent(this, Pausa_help_activity.class);
+                finishAfterTransition();
                 startActivity(nextIntent);
+                break;
+
+            case R.id.action_info:
+                Intent intent = new Intent(this, HelpMainActivity.class);
+                finishAfterTransition();
+                startActivity(intent);
+
+                response = true;
+                break;
         }
 
         return response;

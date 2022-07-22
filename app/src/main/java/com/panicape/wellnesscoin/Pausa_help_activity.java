@@ -55,11 +55,11 @@ public class Pausa_help_activity extends AppCompatActivity {
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);
+        infoItem.setVisible(true);
 
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         logoffItem.setVisible(false);
-        infoItem.setVisible(false);
         configItem.setVisible(false);
         profileItem.setVisible(false);
 

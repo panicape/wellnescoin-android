@@ -49,7 +49,7 @@ public class ConfigActivity extends AppCompatActivity {
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
-        nextItem.setVisible(true);
+        nextItem.setVisible(false);
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);

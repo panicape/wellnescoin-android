@@ -2,8 +2,14 @@ package com.panicape.wellnesscoin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 
 /**
@@ -22,10 +28,93 @@ public class ValidatePausaActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem loginItem = menu.findItem(R.id.action_login);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem logoffItem = menu.findItem(R.id.action_logoff);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        nextItem.setVisible(false);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            loginItem.setVisible(true);
+            profileItem.setVisible(false);
+            logoffItem.setVisible(false);
+        } else {
+            loginItem.setVisible(false);
+            profileItem.setVisible(true);
+            logoffItem.setVisible(true);
+            mainItem.setVisible(true);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        boolean response = false;
+
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent configIntent = new Intent(this, ConfigActivity.class);
+                startActivity(configIntent);
+                response= true;
+                break;
+
+            case  R.id.action_info:
+                Intent infoIntent = new Intent(this, HelpMainActivity.class);
+                finishAfterTransition();
+                startActivity(infoIntent);
+                response= true;
+                break;
+
+            case R.id.action_web:
+                Intent webIntent = new Intent(this, WebActivity.class);
+                finishAfterTransition();
+                startActivity(webIntent);
+                response= true;
+                break;
+
+            case R.id.action_exit:
+                MenuItem mainMenuItem =  findViewById(R.id.action_main);
+                MenuItem loginItem = findViewById(R.id.action_login);
+                MenuItem profileItem = findViewById(R.id.action_profile);
+                MenuItem logoffItem = findViewById(R.id.action_logoff);
+
+                mainMenuItem.setVisible(false);
+                logoffItem.setVisible(false);
+                loginItem.setVisible(true);
+                profileItem.setVisible(false);
+
+                FirebaseAuth.getInstance().signOut();
+                System.exit(0);
+
+                response= true;
+                break;
+
+            case R.id.action_profile:
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("frag", "profile");
+                    finishAfterTransition();
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
+                }
+
+                response= true;
+                break;
+        }
+
+        return response;
+    }
+
+    @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("frag", "home");
+        Intent intent = new Intent(this, PausasMainActivity.class);
         finishAfterTransition();
+
         startActivity(intent);
     }
 

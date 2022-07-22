@@ -146,24 +146,37 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+    public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
         MenuItem loginItem = menu.findItem(R.id.action_login);
-        MenuItem profileItem = menu.findItem(R.id.action_profile);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
-        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem nextItem = menu.findItem(R.id.action_next);
 
-        nextItem.setVisible(false);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem backItem = menu.findItem(R.id.action_back);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem infoItem = menu.findItem(R.id.action_info);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem configItem = menu.findItem(R.id.action_settings);
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-            loginItem.setVisible(true);
+        exitItem.setVisible(true);
+        webItem.setVisible(true);
+        backItem.setVisible(true);
+        infoItem.setVisible(true);
+
+        nextItem.setVisible(false);
+        loginItem.setVisible(false);
+        mainItem.setVisible(false);
+        logoffItem.setVisible(false);
+        configItem.setVisible(false);
+        profileItem.setVisible(false);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);
             logoffItem.setVisible(false);
         } else {
-            loginItem.setVisible(false);
             profileItem.setVisible(true);
             logoffItem.setVisible(true);
-            mainItem.setVisible(true);
         }
 
         return true;
@@ -172,43 +185,30 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Toast.makeText(this, "No esta implementado todavia",
-                        Toast.LENGTH_SHORT).show();
-                return true;
-//            case R.id.action_validar_pausas:
-//                Intent intent = new Intent(this, ValidatePausaActivity.class);
-//                startActivity(intent);
-//                return true;
             case  R.id.action_info:
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
                 startActivity(infoIntent);
                 return true;
+
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
                 startActivity(webIntent);
                 return true;
+
             case R.id.action_exit:
-                MenuItem mainMenuItem =  findViewById(R.id.action_main);
-                MenuItem loginItem = findViewById(R.id.action_login);
-                MenuItem profileItem = findViewById(R.id.action_profile);
-                MenuItem logoffItem = findViewById(R.id.action_logoff);
-
-                mainMenuItem.setVisible(false);
-                logoffItem.setVisible(false);
-                loginItem.setVisible(true);
-                profileItem.setVisible(false);
-
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 return true;
+
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.putExtra("frag", "profile");
-                    startActivity(intent);
+                    Intent mainIntent = new Intent(this, MainActivity.class);
+                    mainIntent.putExtra("frag", "profile");
+                    startActivity(mainIntent);
                 } else {
-                    Toast.makeText(this, "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
+                    Toast.makeText(this,
+                            "No se ha encontrado usuario conectado",
+                            Toast.LENGTH_SHORT).show();
                 }
                 return true;
         }

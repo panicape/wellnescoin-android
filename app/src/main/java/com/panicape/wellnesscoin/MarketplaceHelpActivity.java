@@ -46,15 +46,15 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
+        nextItem.setVisible(false);
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);
+        infoItem.setVisible(true);
 
-        nextItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         logoffItem.setVisible(false);
-        infoItem.setVisible(false);
         configItem.setVisible(false);
         profileItem.setVisible(false);
 
@@ -70,6 +70,8 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        boolean response = false;
+
         switch (item.getItemId()) {
             case R.id.action_back:
                 Intent intent = new Intent(this, MainActivity.class);
@@ -79,22 +81,47 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
                     intent.putExtra("frag", "home");
                 }
 
+                response = true;
                 startActivity(intent);
                 break;
 
+            case R.id.action_web:
+                Intent webIntent = new Intent(this, WebActivity.class);
+
+                finishAfterTransition();
+                response = true;
+
+                startActivity(webIntent);
+
+                break;
+
+            case  R.id.action_info:
+                Intent infoIntent = new Intent(this, HelpMainActivity.class);
+
+                finishAfterTransition();
+                response = true;
+
+                startActivity(infoIntent);
+                return true;
+
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
+
+                finishAfterTransition();
+                response = true;
+
                 System.exit(0);
                 return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return response;
     }
 
     @Override
     public void onBackPressed() {
         finishAfterTransition();
         Intent mainIntent = new Intent(this, MainActivity.class);
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             mainIntent.putExtra("frag","login");
         } else {
