@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DoPausaHelpActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="603dp"
+        android:contentDescription="Infografia de como hacer las pausas activas"
+        android:fillViewport="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="800dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/infographicDoPausa"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:contentDescription="Infografia de como hacer las pausas activas"
+                app:srcCompat="@drawable/do_pausa_help" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

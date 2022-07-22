@@ -38,20 +38,34 @@ public class Pausa_help_activity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem loginItem = menu.findItem(R.id.action_login);
-        MenuItem profileItem = menu.findItem(R.id.action_profile);
+    public boolean onPrepareOptionsMenu(Menu menu) {MenuItem loginItem = menu.findItem(R.id.action_login);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
+        MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem backItem = menu.findItem(R.id.action_back);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem infoItem = menu.findItem(R.id.action_info);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem configItem = menu.findItem(R.id.action_settings);
+
+        nextItem.setVisible(true);
+        exitItem.setVisible(true);
+        webItem.setVisible(true);
+        backItem.setVisible(true);
+
+        loginItem.setVisible(false);
+        mainItem.setVisible(false);
+        logoffItem.setVisible(false);
+        infoItem.setVisible(false);
+        configItem.setVisible(false);
+        profileItem.setVisible(false);
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-            backItem.setVisible(true);
-            loginItem.setVisible(false);
             profileItem.setVisible(false);
             logoffItem.setVisible(false);
         } else {
-            loginItem.setVisible(false);
-            backItem.setVisible(true);
             profileItem.setVisible(true);
             logoffItem.setVisible(true);
         }
@@ -63,13 +77,18 @@ public class Pausa_help_activity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_back:
                 Intent intent = new Intent(this, MainActivity.class);
-                if (FirebaseAuth.getInstance().getCurrentUser()==null) {
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                     intent.putExtra("frag", "login");
                 } else {
                     intent.putExtra("frag", "home");
                 }
 
                 startActivity(intent);
+                break;
+
+            case R.id.action_next:
+                Intent doPausaHelpIntent = new Intent(this, DoPausaHelpActivity.class);
+                startActivity(doPausaHelpIntent);
                 break;
 
             case R.id.action_settings:
@@ -99,7 +118,11 @@ public class Pausa_help_activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, HelpMainActivity.class);
-        startActivity(intent);
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            mainIntent.putExtra("frag","login");
+        } else {
+            mainIntent.putExtra("frag","home");
+        }
     }
 }

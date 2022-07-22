@@ -306,6 +306,9 @@ public class PausaHands extends AppCompatActivity {
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        nextItem.setVisible(false);
 
         webItem.setVisible(true);
         exitItem.setVisible(true);
@@ -357,6 +360,8 @@ public class PausaHands extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("frag", "home");
+
+        finishAfterTransition();
         startActivity(intent);
     }
 }

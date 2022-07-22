@@ -43,6 +43,9 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem backItem = findViewById(R.id.action_back);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        nextItem.setVisible(false);
 
         webItem.setVisible(true);
         backItem.setVisible(true);
@@ -98,6 +101,7 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        finishAfterTransition();
         Intent intent = new Intent(this, HelpMainActivity.class);
         startActivity(intent);
     }

@@ -29,25 +29,4 @@
         app:srcCompat="@drawable/logo"
         android:contentDescription="Logo de la aplicación"/>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="235dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="Habilitar notificación para realizar pausas"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
-
-    <Switch
-        android:id="@+id/enableAlarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
-        android:minHeight="48dp"
-        android:text="Off / On"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

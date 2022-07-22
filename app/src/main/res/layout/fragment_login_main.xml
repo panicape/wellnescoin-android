@@ -62,7 +62,8 @@
                     android:layout_height="60dp"
                     android:contentDescription="Logo  de acción de Pausa Activa"
                     android:src="@drawable/pausaactiva"
-                    tools:ignore="ImageContrastCheck,ImageContrastCheck,ImageContrastCheck" />
+                    tools:ignore="ImageContrastCheck,ImageContrastCheck,ImageContrastCheck"
+                    tools:srcCompat="@android:drawable/ic_menu_set_as" />
 
                 <TextView
                     android:id="@+id/opt2Title"
@@ -101,17 +102,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="Realizar Pausa activa"
+                    android:text="Hacer Pausa activa"
                     android:textSize="20sp"
                     android:textStyle="bold|italic" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-
         <androidx.cardview.widget.CardView
-            android:id="@+id/marketplaceCV"
-            android:layout_width="220dp"
+            android:id="@+id/walletCV"
+            android:layout_width="196dp"
             android:layout_margin="8dp"
             android:padding="8dp"
             app:cardCornerRadius="8dp">
@@ -123,16 +122,49 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:id="@+id/imgPausaDesc2"
+                    android:id="@+id/imgPausaDesc3"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:contentDescription="Logo temporal para marketplace y wallet"
-                    android:src="@drawable/paginaweb"
-                    tools:srcCompat="@drawable/marketplace" />
+                    android:src="@drawable/money_wallet"
+                    tools:srcCompat="@drawable/money_wallet" />
 
                 <TextView
                     android:id="@+id/opt3Title"
-                    android:layout_width="match_parent"
+                    android:layout_width="120dp"
+                    android:layout_height="63dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Billetera"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/marketplaceCV"
+            android:layout_width="196dp"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/imgPausaDesc4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="Logo temporal para marketplace y wallet"
+                    android:src="@drawable/money_wallet"
+                    tools:srcCompat="@drawable/marketplace" />
+
+                <TextView
+                    android:id="@+id/opt4Title"
+                    android:layout_width="120dp"
                     android:layout_height="63dp"
                     android:layout_marginStart="5dp"
                     android:text="@string/menu_marketplace"

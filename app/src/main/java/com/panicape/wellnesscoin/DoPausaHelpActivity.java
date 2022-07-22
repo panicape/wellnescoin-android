@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -17,16 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-/**
- *
- * @author panicape
- * @version 0.01 May 2022
- */
-public class HelpMainActivity extends AppCompatActivity implements View.OnTouchListener {
+public class DoPausaHelpActivity extends AppCompatActivity implements View.OnTouchListener {
 
-    private ImageView infographicMain;
-
-    private ImageButton nexthelpBtn;
+    private ImageView infographicDoPausa;
 
     private static final String TAG = "HELP ACTIVITY";
     private static final float MIN_ZOOM = 1f, MAX_ZOOM = 1f;
@@ -52,10 +44,10 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help_main);
+        setContentView(R.layout.activity_do_pausa_help);
 
-        infographicMain = (ImageView) findViewById(R.id.infographicLogin);
-        infographicMain.setOnTouchListener(this);
+        infographicDoPausa = (ImageView) findViewById(R.id.infographicDoPausa);
+        infographicDoPausa.setOnTouchListener(this);
     }
 
     @Override
@@ -175,8 +167,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         sb.append("]");
         Log.d("Touch Events ---------", sb.toString());
     }
-
-
 
 
     @Override

@@ -107,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem backItem = menu.findItem(R.id.action_back);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        nextItem.setVisible(false);
 
         helpItem.setVisible(true);
         webItem.setVisible(true);
@@ -190,7 +193,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_login_main:
                 Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);
                 FirebaseAuth.getInstance().signOut();
-                finish();
+                finishAfterTransition();
+                navController.navigate(R.id.action_login);
 
                 break;
             case R.id.nav_marketplace:

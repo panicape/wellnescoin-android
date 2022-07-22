@@ -43,6 +43,9 @@ public class ValidatePausasMain extends AppCompatActivity {
         MenuItem profileItem = menu.findItem(R.id.action_profile);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        nextItem.setVisible(false);
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             loginItem.setVisible(true);
@@ -72,10 +75,12 @@ public class ValidatePausasMain extends AppCompatActivity {
 //                return true;
             case  R.id.action_info:
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
+                finishAfterTransition();
                 startActivity(infoIntent);
                 return true;
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
+                finishAfterTransition();
                 startActivity(webIntent);
                 return true;
             case R.id.action_exit:
@@ -90,12 +95,14 @@ public class ValidatePausasMain extends AppCompatActivity {
                 profileItem.setVisible(false);
 
                 FirebaseAuth.getInstance().signOut();
-                finish();
+                System.exit(0);
+
                 return true;
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("frag", "profile");
+                    finishAfterTransition();
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
@@ -109,6 +116,7 @@ public class ValidatePausasMain extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("frag", "home");
+        finishAfterTransition();
         startActivity(intent);
     }
 }

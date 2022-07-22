@@ -25,6 +25,7 @@ public class ValidatePausaActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("frag", "home");
+        finishAfterTransition();
         startActivity(intent);
     }
 

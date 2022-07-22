@@ -42,7 +42,6 @@ public class WebActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
-
         MenuItem loginItem = menu.findItem(R.id.action_login);
         MenuItem helpItem =  menu.findItem(R.id.action_info);
         MenuItem settingsItem =  menu.findItem(R.id.action_settings);
@@ -51,6 +50,9 @@ public class WebActivity extends AppCompatActivity {
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        nextItem.setVisible(false);
 
         helpItem.setVisible(true);
         webItem.setVisible(true);
@@ -76,19 +78,21 @@ public class WebActivity extends AppCompatActivity {
                 } else {
                     mainIntent.putExtra("frag","home");
                 }
+
+                finishAfterTransition();
                 startActivity(mainIntent);
 
                 response = true;
                 break;
             case R.id.action_info:
-                Intent webIntent = new Intent(this, HelpMainActivity.class);
-                startActivity(webIntent);
+                Intent helpIntent = new Intent(this, HelpMainActivity.class);
+                startActivity(helpIntent);
 
                 response = true;
                 break;
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
-                finish();
+                System.exit(0);
 
                 response = true;
                 break;
@@ -105,6 +109,8 @@ public class WebActivity extends AppCompatActivity {
         } else {
             backIntent.putExtra("frag", "home");
         }
+
+        finishAfterTransition();
         startActivity(backIntent);
     }
 

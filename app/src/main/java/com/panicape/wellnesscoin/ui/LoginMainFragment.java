@@ -27,7 +27,7 @@ public class LoginMainFragment extends Fragment {
 
     private FragmentLoginMainBinding binding;
 
-    CardView pausaStatus, doPausas, marketplace;
+    private CardView pausaStatus, doPausas, marketplace, wallet;
 
 
 
@@ -79,6 +79,13 @@ public class LoginMainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_nav_login_home_to_nav_marketplace);
+            }
+        });
+
+        wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
             }
         });
     }

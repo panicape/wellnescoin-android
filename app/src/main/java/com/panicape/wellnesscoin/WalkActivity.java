@@ -151,6 +151,9 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         MenuItem profileItem = menu.findItem(R.id.action_profile);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        nextItem.setVisible(false);
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             loginItem.setVisible(true);
@@ -216,6 +219,8 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("frag", "home");
+
+        finishAfterTransition();
         startActivity(intent);
     }
 }

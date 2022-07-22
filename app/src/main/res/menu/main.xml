@@ -8,6 +8,9 @@
         android:id="@+id/action_back"
         android:title="Atras" />
     <item
+        android:id="@+id/action_next"
+        android:title="Siguiente" />
+    <item
         android:id="@+id/action_info"
         android:orderInCategory="100"
         android:title="@string/information"

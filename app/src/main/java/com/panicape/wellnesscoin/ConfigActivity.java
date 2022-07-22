@@ -1,24 +1,15 @@
 package com.panicape.wellnesscoin;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.panicape.wellnesscoin.tools.AlarmReceiver;
-
-import java.util.Calendar;
 
 /**
  * Screen to configure app elements
@@ -26,12 +17,6 @@ import java.util.Calendar;
  * @version 0.01 May 2022
  */
 public class ConfigActivity extends AppCompatActivity {
-
-    private AlarmManager alarmMgr;
-
-    private static final int alarmId = 1;
-
-    private Switch enableAlarm;
 
 
     // Methods
@@ -41,57 +26,6 @@ public class ConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
-        alarmMgr =
-                (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-
-        enableAlarm = findViewById(R.id.enableAlarm);
-        enableAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Calendar calendar = Calendar.getInstance();
-                    int hour = calendar.get(Calendar.HOUR_OF_DAY) + 2;
-
-                    setAlarm(buttonView.getContext(), calendar);
-                    Toast.makeText(buttonView.getContext(),
-                            "Alarma activada: "
-                                    + calendar.get(Calendar.YEAR)+"-"+
-                                    calendar.get(Calendar.MONTH)+"-"+
-                                    calendar.get(Calendar.DAY_OF_MONTH)+" "+
-                                    (hour) + ":" +
-                                    calendar.get(Calendar.MINUTE),
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    stopAlarm(buttonView.getContext());
-                    Toast.makeText(buttonView.getContext(), "Alarma desactivada",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-    }
-
-    public void setAlarm(Context ctx, Calendar calendar) {
-        // With setInexactRepeating(), you have to use one of the AlarmManager interval
-        // constants--in this case, AlarmManager.INTERVAL_DAY.
-
-        Intent alarmIntent = new Intent(ctx, AlarmReceiver.class);
-        PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(ctx, alarmId, alarmIntent,
-                PendingIntent.FLAG_ONE_SHOT);
-        alarmIntent.setData((Uri.parse("custom://" + calendar.getTimeInMillis())));
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-//                AlarmManager.INTERVAL_DAY, pendingIntent);
-    }
-
-    public static void stopAlarm(Context context) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                alarmIntent, 0);
-        alarmManager.cancel(pendingIntent);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,7 +45,9 @@ public class ConfigActivity extends AppCompatActivity {
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem nextItem = menu.findItem(R.id.action_next);
 
+        nextItem.setVisible(false);
         webItem.setVisible(true);
         exitItem.setVisible(true);
         mainItem.setVisible(true);
@@ -130,23 +66,26 @@ public class ConfigActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case  R.id.action_info:
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
+                finishAfterTransition();
                 startActivity(infoIntent);
                 return true;
 
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
+                finishAfterTransition();
                 startActivity(webIntent);
                 return true;
 
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
-                finish();
+                System.exit(0);
                 return true;
 
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     Intent mainIntent = new Intent(this, MainActivity.class);
                     mainIntent.putExtra("frag", "profile");
+                    finishAfterTransition();
                     startActivity(mainIntent);
                 } else {
                     Toast.makeText(this,
@@ -162,6 +101,7 @@ public class ConfigActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
+        finishAfterTransition();
         startActivity(intent);
     }
 
