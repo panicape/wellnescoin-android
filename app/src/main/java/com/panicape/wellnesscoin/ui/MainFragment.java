@@ -51,7 +51,7 @@ public class MainFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        startBtn = root.findViewById(R.id.startBtn);
+        startBtn = binding.startBtn;
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -50,11 +50,10 @@ public class LoginMainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Navigation.findNavController(view).clearBackStack(R.id.nav_login);
-
-        doPausas = (CardView) view.getRootView().findViewById(R.id.pausaCV) ;
-        marketplace = (CardView) view.getRootView().findViewById(R.id.marketplaceCV) ;
-        pausaStatus = (CardView) view.getRootView().findViewById(R.id.pausastatusCV) ;
+        doPausas = binding.pausaCV;
+        marketplace = binding.marketplaceCV ;
+        pausaStatus = binding.pausastatusCV;
+        wallet = binding.walletCV;
 
         doPausas.setOnClickListener(new View.OnClickListener() {
             @Override
