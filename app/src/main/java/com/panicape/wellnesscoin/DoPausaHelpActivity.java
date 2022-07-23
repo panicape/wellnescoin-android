@@ -245,7 +245,7 @@ public class DoPausaHelpActivity extends AppCompatActivity implements View.OnTou
                 response = true;
                 break;
             case R.id.action_next:
-                Intent nextIntent = new Intent(this, Pausa_help_activity.class);
+                Intent nextIntent = new Intent(this, WalletHelpActivity.class);
                 finishAfterTransition();
                 startActivity(nextIntent);
                 break;

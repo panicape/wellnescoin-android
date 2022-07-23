@@ -46,17 +46,15 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
-        nextItem.setVisible(false);
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);
         infoItem.setVisible(true);
 
+        nextItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
-        logoffItem.setVisible(false);
         configItem.setVisible(false);
-        profileItem.setVisible(false);
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);

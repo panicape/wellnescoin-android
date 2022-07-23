@@ -76,26 +76,55 @@ public class WalletHelpActivity extends AppCompatActivity {
         return true;
     }
 
+
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        boolean response = false;
+
         switch (item.getItemId()) {
             case R.id.action_back:
-                Intent intent = new Intent(this, MainActivity.class);
-                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                    intent.putExtra("frag", "login");
+                Intent mainIntent = new Intent(this, MainActivity.class);
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    mainIntent.putExtra("frag","login");
                 } else {
-                    intent.putExtra("frag", "home");
+                    mainIntent.putExtra("frag","home");
                 }
 
-                startActivity(intent);
+                finishAfterTransition();
+                startActivity(mainIntent);
+
+                response = true;
+                break;
+            case R.id.action_web:
+                Intent webIntent = new Intent(this, WebActivity.class);
+                finishAfterTransition();
+                startActivity(webIntent);
+
+                response = true;
+                break;
+            case R.id.action_exit:
+                if (FirebaseAuth.getInstance().getCurrentUser()!= null) {
+                    FirebaseAuth.getInstance().signOut();
+                }
+                System.exit(0);
+
+                response = true;
+                break;
+            case R.id.action_next:
+                Intent nextIntent = new Intent(this, MarketplaceHelpActivity.class);
+                finishAfterTransition();
+                startActivity(nextIntent);
                 break;
 
-            case R.id.action_exit:
-                FirebaseAuth.getInstance().signOut();
-                System.exit(0);
-                return true;
+            case R.id.action_info:
+                Intent intent = new Intent(this, HelpMainActivity.class);
+                finishAfterTransition();
+                startActivity(intent);
+
+                response = true;
+                break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return response;
     }
 
     @Override
