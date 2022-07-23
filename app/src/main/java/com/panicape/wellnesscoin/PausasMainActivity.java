@@ -70,9 +70,7 @@ public class PausasMainActivity extends AppCompatActivity {
         nextItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
-        logoffItem.setVisible(false);
         configItem.setVisible(false);
-        profileItem.setVisible(false);
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);
@@ -97,6 +95,7 @@ public class PausasMainActivity extends AppCompatActivity {
                     intent.putExtra("frag", "home");
                 }
 
+                finishAfterTransition();
                 response = true;
                 startActivity(intent);
                 break;
@@ -104,11 +103,10 @@ public class PausasMainActivity extends AppCompatActivity {
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
 
-                finishAfterTransition();
                 response = true;
+                finishAfterTransition();
 
                 startActivity(webIntent);
-
                 break;
 
             case  R.id.action_info:
@@ -143,5 +141,9 @@ public class PausasMainActivity extends AppCompatActivity {
         } else {
             mainIntent.putExtra("frag","home");
         }
+
+        finishAfterTransition();
+        startActivity(mainIntent);
     }
+
 }

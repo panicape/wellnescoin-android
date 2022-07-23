@@ -59,9 +59,7 @@ public class Pausa_help_activity extends AppCompatActivity {
 
         loginItem.setVisible(false);
         mainItem.setVisible(false);
-        logoffItem.setVisible(false);
         configItem.setVisible(false);
-        profileItem.setVisible(false);
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);
@@ -84,16 +82,19 @@ public class Pausa_help_activity extends AppCompatActivity {
                     intent.putExtra("frag", "home");
                 }
 
+                finishAfterTransition();
                 startActivity(intent);
                 break;
 
             case R.id.action_next:
                 Intent doPausaHelpIntent = new Intent(this, DoPausaHelpActivity.class);
+                finishAfterTransition();
                 startActivity(doPausaHelpIntent);
                 break;
 
             case R.id.action_settings:
                 Intent configIntent = new Intent(this, ConfigActivity.class);
+                finishAfterTransition();
                 startActivity(configIntent);
                 return true;
 
@@ -114,6 +115,7 @@ public class Pausa_help_activity extends AppCompatActivity {
                 System.exit(1);
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,5 +127,8 @@ public class Pausa_help_activity extends AppCompatActivity {
         } else {
             mainIntent.putExtra("frag","home");
         }
+
+        finishAfterTransition();
+        startActivity(mainIntent);
     }
 }

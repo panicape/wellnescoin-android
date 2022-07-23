@@ -68,6 +68,7 @@ public class ValidatePausasMain extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent configIntent = new Intent(this, ConfigActivity.class);
+                finishAfterTransition();
                 startActivity(configIntent);
                 response= true;
                 break;
@@ -106,7 +107,9 @@ public class ValidatePausasMain extends AppCompatActivity {
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     Intent intent = new Intent(this, MainActivity.class);
+
                     intent.putExtra("frag", "profile");
+
                     finishAfterTransition();
                     startActivity(intent);
                 } else {
@@ -121,11 +124,15 @@ public class ValidatePausasMain extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent mainIntent = new Intent(this, MainActivity.class);
 
-        intent.putExtra("frag", "home");
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            mainIntent.putExtra("frag","login");
+        } else {
+            mainIntent.putExtra("frag","home");
+        }
+
         finishAfterTransition();
-
-        startActivity(intent);
+        startActivity(mainIntent);
     }
 }

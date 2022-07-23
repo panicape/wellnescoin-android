@@ -346,6 +346,7 @@ public class PausaHands extends AppCompatActivity {
 
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
+                finishAfterTransition();
                 startActivity(webIntent);
                 return true;
 
@@ -353,6 +354,7 @@ public class PausaHands extends AppCompatActivity {
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     Intent mainIntent = new Intent(this, MainActivity.class);
                     mainIntent.putExtra("frag", "profile");
+                    finishAfterTransition();
                     startActivity(mainIntent);
                 } else {
                     Toast.makeText(this,

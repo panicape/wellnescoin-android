@@ -142,10 +142,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(settingsIntent);
                 return true;
 
-//            case R.id.action_validar_pausas:
-//                Intent intent = new Intent(this, ValidatePausaActivity.class);
-//                startActivity(intent);
-//                return true;
             case  R.id.action_info:
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
                 startActivity(infoIntent);
@@ -165,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);
                 navController.navigate(R.id.login);
+
                 return true;
 
             case R.id.action_profile:
@@ -175,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                             "No se ha encontrado usuario conectado",
                             Toast.LENGTH_SHORT).show();
                 }
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -198,17 +196,17 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.nav_marketplace:
-                navController.navigate(R.id.nav_home);
+                navController.navigate(R.id.nav_marketplace);
 
                 break;
             case R.id.nav_wallet:
-                navController.navigate(R.id.nav_home);
+                navController.navigate(R.id.nav_wallet);
 
                 break;
 
             default:
                 FirebaseAuth.getInstance().signOut();
-                Toast.makeText(this, "Seión Cerrada", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);
                 navController.navigate(R.id.nav_login);
 
                 break;

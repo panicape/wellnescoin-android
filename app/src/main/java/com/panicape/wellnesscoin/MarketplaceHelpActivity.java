@@ -82,6 +82,7 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
                 }
 
                 response = true;
+                finishAfterTransition();
                 startActivity(intent);
                 break;
 
@@ -127,6 +128,8 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
         } else {
             mainIntent.putExtra("frag","home");
         }
+
+        startActivity(mainIntent);
     }
 
 }

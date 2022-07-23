@@ -58,8 +58,9 @@ public class ValidatePausaActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent configIntent = new Intent(this, ConfigActivity.class);
-                startActivity(configIntent);
                 response= true;
+                finishAfterTransition();
+                startActivity(configIntent);
                 break;
 
             case  R.id.action_info:
@@ -71,9 +72,11 @@ public class ValidatePausaActivity extends AppCompatActivity {
 
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
+
                 finishAfterTransition();
                 startActivity(webIntent);
                 response= true;
+
                 break;
 
             case R.id.action_exit:
@@ -113,6 +116,7 @@ public class ValidatePausaActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, PausasMainActivity.class);
+
         finishAfterTransition();
 
         startActivity(intent);

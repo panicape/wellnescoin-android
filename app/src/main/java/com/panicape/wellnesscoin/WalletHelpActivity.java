@@ -63,9 +63,7 @@ public class WalletHelpActivity extends AppCompatActivity {
         nextItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
-        logoffItem.setVisible(false);
         configItem.setVisible(false);
-        profileItem.setVisible(false);
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);

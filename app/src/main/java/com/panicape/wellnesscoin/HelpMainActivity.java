@@ -138,7 +138,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
      * Description: calculates the midpoint between the two fingers
      * ------------------------------------------------------------
      */
-
     private void midPoint(PointF point, MotionEvent event) {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);
@@ -149,7 +148,8 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
      * Show an event in the LogCat view, for debugging
      */
     private void dumpEvent(MotionEvent event) {
-        String names[] = {"DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE", "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?"};
+        String names[] = {"DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE",
+                "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?"};
         StringBuilder sb = new StringBuilder();
         int action = event.getAction();
         int actionCode = action & MotionEvent.ACTION_MASK;
@@ -193,7 +193,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem nextItem = menu.findItem(R.id.action_next);
-
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem backItem = menu.findItem(R.id.action_back);
         MenuItem profileItem = menu.findItem(R.id.action_profile);
@@ -201,17 +200,16 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
+        backItem.setVisible(true);
         nextItem.setVisible(true);
         exitItem.setVisible(true);
+        logoffItem.setVisible(false);
         webItem.setVisible(true);
-        backItem.setVisible(true);
 
         loginItem.setVisible(false);
         mainItem.setVisible(false);
-        logoffItem.setVisible(false);
         infoItem.setVisible(false);
         configItem.setVisible(false);
-        profileItem.setVisible(false);
 
         if(FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);
@@ -230,7 +228,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         switch (item.getItemId()) {
             case R.id.action_back:
                 Intent mainIntent = new Intent(this, MainActivity.class);
-                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                     mainIntent.putExtra("frag","login");
                 } else {
                     mainIntent.putExtra("frag","home");
@@ -252,13 +250,18 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
                 if (FirebaseAuth.getInstance().getCurrentUser()!= null) {
                     FirebaseAuth.getInstance().signOut();
                 }
+
                 System.exit(0);
 
                 response = true;
                 break;
             case R.id.action_next:
                 Intent nextIntent = new Intent(this, Pausa_help_activity.class);
+                finishAfterTransition();
                 startActivity(nextIntent);
+
+                response =true;
+                break;
         }
 
         return response;
@@ -274,6 +277,8 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         } else {
             mainIntent.putExtra("frag","home");
         }
+        finishAfterTransition();
+        startActivity(mainIntent);
     }
 
 }

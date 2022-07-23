@@ -184,43 +184,68 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        boolean response = false;
+
         switch (item.getItemId()) {
             case  R.id.action_info:
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
+                finishAfterTransition();
                 startActivity(infoIntent);
-                return true;
+                response= true;
+                break;
 
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
+
+                finishAfterTransition();
                 startActivity(webIntent);
-                return true;
+
+                response= true;
+                break;
 
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
-                finish();
-                return true;
+
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    mainIntent.putExtra("frag","login");
+                } else {
+                    mainIntent.putExtra("frag","home");
+                }
+
+                finishAfterTransition();
+                startActivity(mainIntent);
+
+                response= true;
+                break;
 
             case R.id.action_profile:
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    Intent mainIntent = new Intent(this, MainActivity.class);
                     mainIntent.putExtra("frag", "profile");
+                    finishAfterTransition();
                     startActivity(mainIntent);
                 } else {
                     Toast.makeText(this,
                             "No se ha encontrado usuario conectado",
                             Toast.LENGTH_SHORT).show();
                 }
-                return true;
+
+                response= true;
+                break;
         }
-        return super.onOptionsItemSelected(item);
+        return response;
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("frag", "home");
+        Intent mainIntent = new Intent(this, MainActivity.class);
 
-        finishAfterTransition();
-        startActivity(intent);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            mainIntent.putExtra("frag","login");
+        } else {
+            mainIntent.putExtra("frag","home");
+        }
+
+        startActivity(mainIntent);
     }
 }

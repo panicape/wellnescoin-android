@@ -199,11 +199,9 @@ public class DoPausaHelpActivity extends AppCompatActivity implements View.OnTou
 
         loginItem.setVisible(false);
         mainItem.setVisible(false);
-        logoffItem.setVisible(false);
         configItem.setVisible(false);
-        profileItem.setVisible(false);
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);
             logoffItem.setVisible(false);
         } else {
