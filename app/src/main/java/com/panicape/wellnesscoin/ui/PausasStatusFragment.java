@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,35 +76,37 @@ public class PausasStatusFragment extends Fragment {
                     int hour = 0;
                     hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-                    if (intervalET.getText() == null || intervalET.getText().equals("")) {
+                    if (intervalET.getText() == null || intervalET.getText().toString().equals("")) {
                         hour += 2;
                         canActivate = true;
                     } else {
-                        Integer result = Integer.getInteger(intervalET.getText().toString());
-                        if (result >= 1 && result <= 8) {
-                            Toast.makeText(buttonView.getContext(),
-                                    "El intervalo de tiempo tiene que ser entre 1 y 8 horas",
-                                    Toast.LENGTH_SHORT);
-                            canActivate = false;
-                        } else {
-                            canActivate = true;
-                            hour += result;
-                        }
+                        Log.i("ALARM INTERVAL", ""+intervalET.getText().toString());
+                        Integer result = Integer.valueOf(intervalET.getText().toString());
+
+                            if (result >= 1 && result <= 8) {
+                                Toast.makeText(buttonView.getContext(),
+                                        "El intervalo de tiempo tiene que ser entre 1 y 8 horas",
+                                        Toast.LENGTH_SHORT);
+                                canActivate = false;
+                            } else {
+                                canActivate = true;
+                                hour += result;
+                            }
                     }
 
                     if (canActivate) {
-                        setAlarm(buttonView.getContext(), calendar);
-
                         if (hour <= 24) {
-                            calendar.set(Calendar.HOUR_OF_DAY, hour);
-                        } else {
-                            int newResult = hour - 24;
-                            int currentDay = calendar.get(calendar.DAY_OF_MONTH);
-                            calendar.set(Calendar.DAY_OF_MONTH, currentDay + 1);
-                            calendar.set(Calendar.HOUR_OF_DAY, newResult);
 
-                            hour = newResult;
+                            calendar.add(Calendar.HOUR, hour);
+                        } else {
+                            hour = hour - 24;
+
+                            int currentDay = calendar.get(calendar.DAY_OF_MONTH);
+                            calendar.add(Calendar.DAY_OF_MONTH, currentDay + 1);
+                            calendar.add(Calendar.HOUR_OF_DAY, hour);
                         }
+
+                        setAlarm(buttonView.getContext(), calendar);
 
                         Toast.makeText(buttonView.getContext(),
                                 "Alarma activada: "
