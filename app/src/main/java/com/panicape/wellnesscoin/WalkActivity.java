@@ -112,10 +112,10 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if (sensorEvent != null && sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            stepCounter.setText(String.valueOf(counter++));
+        if (sensorEvent != null &&
+                sensorEvent.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+            stepCounter.setText (String.valueOf (counter++));
         }
-
     }
 
     @Override
@@ -126,7 +126,8 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, stepSensor, sensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, stepSensor,
+                sensorManager.SENSOR_DELAY_FASTEST);
 
         stepCounter.setText(String.valueOf(counter));
     }
@@ -190,8 +191,10 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         switch (item.getItemId()) {
             case  R.id.action_info:
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
+
                 finishAfterTransition();
                 startActivity(infoIntent);
+
                 response= true;
                 break;
 
@@ -240,12 +243,13 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     public void onBackPressed() {
         Intent mainIntent = new Intent(this, MainActivity.class);
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             mainIntent.putExtra("frag","login");
         } else {
             mainIntent.putExtra("frag","home");
         }
 
+        finishAfterTransition();
         startActivity(mainIntent);
     }
 }

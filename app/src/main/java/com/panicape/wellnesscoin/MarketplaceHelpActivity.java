@@ -121,7 +121,7 @@ public class MarketplaceHelpActivity extends AppCompatActivity {
         finishAfterTransition();
         Intent mainIntent = new Intent(this, MainActivity.class);
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             mainIntent.putExtra("frag","login");
         } else {
             mainIntent.putExtra("frag","home");

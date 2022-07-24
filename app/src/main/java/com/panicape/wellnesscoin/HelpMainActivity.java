@@ -192,7 +192,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem loginItem = menu.findItem(R.id.action_login);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
-        MenuItem nextItem = menu.findItem(R.id.action_next);
+        MenuItem helStatusItem = menu.findItem(R.id.action_help_status);
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem backItem = menu.findItem(R.id.action_back);
         MenuItem profileItem = menu.findItem(R.id.action_profile);
@@ -200,8 +200,11 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+        nextItem.setVisible(false);
+
         backItem.setVisible(true);
-        nextItem.setVisible(true);
+        helStatusItem.setVisible(true);
         exitItem.setVisible(true);
         logoffItem.setVisible(false);
         webItem.setVisible(true);
@@ -225,9 +228,9 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         boolean response = false;
 
+        Intent mainIntent = new Intent(this, MainActivity.class);
         switch (item.getItemId()) {
             case R.id.action_back:
-                Intent mainIntent = new Intent(this, MainActivity.class);
                 if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                     mainIntent.putExtra("frag","login");
                 } else {
@@ -250,18 +253,23 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
                 if (FirebaseAuth.getInstance().getCurrentUser()!= null) {
                     FirebaseAuth.getInstance().signOut();
                 }
+                mainIntent.putExtra("frag","login");
 
-                System.exit(0);
+                finishAfterTransition();
+                startActivity(mainIntent);
 
                 response = true;
                 break;
-            case R.id.action_next:
+            case R.id.action_help_status:
+
+            //case R.id.action_next:
                 Intent nextIntent = new Intent(this, Pausa_help_activity.class);
                 finishAfterTransition();
                 startActivity(nextIntent);
 
                 response =true;
                 break;
+
         }
 
         return response;

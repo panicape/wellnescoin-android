@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,9 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
  * @version 0.01 May 2022
  */
 public class Pausa_help_activity extends AppCompatActivity {
-
-    private ImageButton nextBtn;
-
 
     // Methods
 

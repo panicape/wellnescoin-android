@@ -2,6 +2,9 @@ package com.panicape.wellnesscoin;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,7 +43,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.panicape.wellnesscoin.tools.AlarmReceiver;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -107,6 +114,10 @@ public class PausaHands extends AppCompatActivity {
 
     private boolean isVideoSaved;
 
+    private AlarmManager alarmMgr;
+
+    private static final int alarmId = 1;
+
 
     // Methods
 
@@ -117,9 +128,10 @@ public class PausaHands extends AppCompatActivity {
 
         if (firebaseUser == null) {
             Toast.makeText(this, "No se ha detectado usuario conectado", Toast.LENGTH_SHORT);
-            startActivity(new Intent(this, MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else {
-            Log.i("PausaHands: ", "CURRENT="+firebaseUser.getEmail());
+            Log.i("PausaHands: ", "CURRENT=" + firebaseUser.getEmail());
 
             mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -176,57 +188,100 @@ public class PausaHands extends AppCompatActivity {
         saveHandsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (videoUri != null) {
-                    Log.i("SAVE VIDEO", "Video Uri to save: " + videoUri);
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                    Toast.makeText(v.getContext(),
+                            "No hay usuario conectado con el cual uardar esta pausa",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                    String userConnected = email.split("\\@")[0];
 
-                    p.setVisibility(View.VISIBLE);
-                    mStorageRef = FirebaseStorage.getInstance().getReference(videoFolderPath + System.currentTimeMillis());
-                    mStorageRef.putFile(videoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        /**
-                         * Method onSuccess
-                         *
-                         * @param taskSnapshot
-                         */
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            String timestamp = "" + System.currentTimeMillis();
+                    if (videoUri != null) {
+                        Log.i("SAVE VIDEO", "Video Uri to save: " + videoUri);
 
-                            while (!uriTask.isSuccessful()) {
-                                // URl del video subido
-                                Task<Uri> downloadedUri = taskSnapshot.getStorage().getDownloadUrl();
+                        p.setVisibility(View.VISIBLE);
+                        mStorageRef = FirebaseStorage.getInstance().getReference(videoFolderPath
+                                + System.currentTimeMillis());
 
-                                // Now can add video details to DB
-                                HashMap<String, Object> hashMap = new HashMap<String, Object>();
-                                hashMap.put("id", "Panicape" + timestamp);
-                                hashMap.put("title", "pausa_" + timestamp);
-                                hashMap.put("timestamp", timestamp);
-                                hashMap.put("video_url", downloadedUri);
-
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                                reference.child("Videos").child("Panicape").setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        mStorageRef.putFile(videoUri)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     /**
                                      * Method onSuccess
-                                     * @param aVoid
+                                     *
+                                     * @param taskSnapshot
                                      */
                                     @Override
-                                    public void onSuccess(Void aVoid) {
-                                        // video upload to db
-                                        p.setVisibility(View.GONE);
-                                        Toast.makeText(getApplicationContext(), "Pausa Guardada", Toast.LENGTH_SHORT).show();
-                                        Log.i("VIDEO", "Video uploaded");
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
 
-                                        isVideoSaved = true;
+                                        LocalDate date = LocalDate.now();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss");
+                                        String currentDateTime = date.format(formatter);
 
-                                        Intent homeActivity = new Intent(PausaHands.this,
-                                                PausasMainActivity.class);
-                                        p.setVisibility(View.GONE);
-                                        startActivity(homeActivity);
+                                        while (!uriTask.isSuccessful()) {
+                                            // URl del video subido
+                                            Task<Uri> downloadedUri = taskSnapshot.getStorage().getDownloadUrl();
+
+                                            // Now can add video details to DB
+                                            HashMap<String, Object> hashMap = new HashMap<String, Object>();
+                                            hashMap.put("id", userConnected);
+                                            hashMap.put("title", "video_" + currentDateTime);
+                                            hashMap.put("timestamp", currentDateTime);
+                                            hashMap.put("video_url", downloadedUri);
+
+                                            DatabaseReference reference =
+                                                    FirebaseDatabase.getInstance().getReference();
+
+                                            reference.child("Videos").child (userConnected
+                                                    + currentDateTime).setValue(hashMap)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                /**
+                                                 * Method onSuccess
+                                                 * @param aVoid
+                                                 */
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // video upload to db
+                                                    p.setVisibility(View.GONE);
+                                                    Toast.makeText(getApplicationContext(),
+                                                            "Pausa Guardada",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    Log.i("VIDEO", "Video uploaded");
+
+                                                    isVideoSaved = true;
+
+                                                    Intent pausasHomeIntent =
+                                                            new Intent(PausaHands.this,
+                                                            PausasMainActivity.class);
+                                                    p.setVisibility(View.GONE);
+                                                    finishAfterTransition();
+                                                    startActivity(pausasHomeIntent);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                /**
+                                                 *
+                                                 * @param e
+                                                 */
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    p.setVisibility(View.GONE);
+                                                    Toast.makeText(getApplicationContext(),
+                                                            "Error: " + e.getMessage(),
+                                                            Toast.LENGTH_SHORT).show();
+
+                                                    Log.e("ERROR",
+                                                            "PausaHands: savePausaBtn1 Button: "
+                                                                    + e.getMessage());
+                                                    isVideoSaved = false;
+                                                }
+                                            });
+                                        }
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     /**
+                                     * Method onFailure
                                      *
-                                     * @param e
+                                     * @param e Exception
                                      */
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
@@ -234,41 +289,72 @@ public class PausaHands extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(),
                                                 "Error: " + e.getMessage(),
                                                 Toast.LENGTH_SHORT).show();
-                                        Log.e("ERROR",
-                                                "PausaHands: savePausaBtn1 Button: "
-                                                        + e.getMessage());
-                                        isVideoSaved=false;
+                                        isVideoSaved=true;
                                     }
                                 });
-                            }
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        /**
-                         * Method onFailure
-                         *
-                         * @param e Exception
-                         */
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            p.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                            isVideoSaved=true;
-                        }
-                    });
-                } else {
-                    Log.i("ERROR", "Video no guardado. Uri=null");
-                    Toast.makeText(getApplicationContext(), "Error. Video no guardado",
-                            Toast.LENGTH_SHORT).show();
-                    isVideoSaved=true;
+                    } else {
+                        Log.i("ERROR", "Video no guardado. Uri=null");
+                        Toast.makeText(getApplicationContext(), "Error. Video no guardado",
+                                Toast.LENGTH_SHORT).show();
+                        isVideoSaved=true;
+                    }
                 }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setCancelable(true);
+                builder.setTitle("Actualizar recordatorio");
+                builder.setMessage("¿Desea activar recordatorio para realizzar pausa activa en 2 horas?");
+                builder.setPositiveButton("Si",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Calendar calendar = Calendar.getInstance();
+                                int hour = 0;
+                                hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+                                hour += 2;
+
+                                    setAlarm(v.getContext(), calendar);
+
+                                    Toast.makeText(v.getContext(),
+                                            "Alarma activada: "
+                                                    + calendar.get(Calendar.YEAR)+"-"+
+                                                    calendar.get(Calendar.MONTH)+"-"+
+                                                    calendar.get(Calendar.DAY_OF_MONTH)+" "+
+                                                    (hour) + ":" +
+                                                    calendar.get(Calendar.MINUTE),
+                                            Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
         p = findViewById(R.id.progressBar);
         p.setVisibility(View.GONE);
+    }
+
+    public void setAlarm(Context ctx, Calendar calendar) {
+
+        Intent alarmIntent = new Intent(ctx, AlarmReceiver.class);
+        PendingIntent pendingIntent;
+        pendingIntent = PendingIntent.getBroadcast(ctx, alarmId, alarmIntent,
+                PendingIntent.FLAG_ONE_SHOT);
+        alarmIntent.setData((Uri.parse("custom://" + calendar.getTimeInMillis())));
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        // With setInexactRepeating(), you have to use one of the AlarmManager interval
+        // constants--in this case, AlarmManager.INTERVAL_DAY.
+
+        // alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+        //    AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public boolean validarPermisos() {
@@ -317,14 +403,16 @@ public class PausaHands extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        AlertDialog dialog;
+
         switch (item.getItemId()) {
             case  R.id.action_back:
                 Intent backIntent = new Intent(this, PausasMainActivity.class);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setCancelable(true);
-                builder.setTitle("Cancelar Pausa?");
-                builder.setMessage("¿Desea cancelar la pausa?");
+                builder.setTitle("Salir");
+                builder.setMessage("¿Desea salir de la pausa activa?");
                 builder.setPositiveButton("Si",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -339,15 +427,17 @@ public class PausaHands extends AppCompatActivity {
                     }
                 });
 
-                AlertDialog dialog = builder.create();
+                dialog = builder.create();
                 dialog.show();
 
                 return true;
 
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
+
                 finishAfterTransition();
                 startActivity(webIntent);
+
                 return true;
 
             case R.id.action_profile:
@@ -365,15 +455,38 @@ public class PausaHands extends AppCompatActivity {
                 return true;
 
             case R.id.action_logoff:
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                return true;
 
             case R.id.action_exit:
-                FirebaseAuth.getInstance().signOut();
-                System.exit(0);
+                Intent logoffIntent = new Intent(this, MainActivity.class);
+                logoffIntent.putExtra("frag","login");
+
+                builder.setTitle("Salir");
+
+                builder.setMessage("¿Desea salir de la pausa activa?");
+                builder.setPositiveButton("Si",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                finish();
+
+                                finishAfterTransition();
+                                startActivity(logoffIntent);
+                            }
+                        });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                dialog = builder.create();
+                dialog.show();
+
                 return true;
+
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -382,14 +495,14 @@ public class PausaHands extends AppCompatActivity {
         Intent backIntent = new Intent(this, PausasMainActivity.class);
 
         if (videoUri != null) {
-            if(isVideoSaved) {
+            if (isVideoSaved) {
                 finishAfterTransition();
                 startActivity(backIntent);
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setCancelable(true);
-                builder.setTitle("Cancelar Pausa?");
-                builder.setMessage("¿Desea cancelar la pausa?");
+                builder.setTitle("Salir");
+                builder.setMessage("¿Desea salir de la pausa activa?");
                 builder.setPositiveButton("Si",
                         new DialogInterface.OnClickListener() {
                             @Override
