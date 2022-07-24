@@ -43,6 +43,8 @@ public class PausasStatusFragment extends Fragment {
 
     private Switch enableAlarm;
 
+    private EditText alarmView;
+
 
     // Constructor
 
@@ -65,6 +67,16 @@ public class PausasStatusFragment extends Fragment {
 
         enableAlarm = binding.psEnabeNotifications;
         intervalET = binding.alarmIntervalET;
+
+        alarmView = binding.alarmView;
+
+
+        String alarmStatus = checkAlarmStatus(root.getContext());
+        if (alarmStatus!=null) {
+            alarmView.setText(alarmStatus);
+        } else{
+            alarmView.setText("INACTIVE");
+        }
 
         enableAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -116,6 +128,10 @@ public class PausasStatusFragment extends Fragment {
                                         (hour) + ":" +
                                         calendar.get(Calendar.MINUTE),
                                 Toast.LENGTH_LONG).show();
+
+                        if (checkAlarmStatus(buttonView.getContext())!=null) {
+                            alarmView.setText(checkAlarmStatus(buttonView.getContext()));
+                        }
                     }
                 } else {
                     stopAlarm(buttonView.getContext());
@@ -163,8 +179,6 @@ public class PausasStatusFragment extends Fragment {
                 PendingIntent.FLAG_ONE_SHOT);
         alarmIntent.setData((Uri.parse("custom://" + calendar.getTimeInMillis())));
         alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-//        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-//                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public static void stopAlarm(Context context) {
@@ -173,6 +187,25 @@ public class PausasStatusFragment extends Fragment {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                 alarmIntent, 0);
         alarmManager.cancel(pendingIntent);
+    }
+
+    public String checkAlarmStatus(Context ctx) {
+        //checking if alarm is working with pendingIntent
+        Intent intent = new Intent(getActivity(), AlarmReceiver.class);//the same as up
+        intent.setAction(Context.ALARM_SERVICE);//the same as up
+
+        boolean isActive = (PendingIntent.getBroadcast(getActivity(), 1, intent,
+                PendingIntent.FLAG_NO_CREATE) != null);//just changed the flag
+        Log.d("PAUSA_STATUS_SCREEN. ALARM", "La alarma "
+                + (isActive ? "" : "NO") + " está activa");
+
+        if (isActive) {
+            if (alarmMgr.getNextAlarmClock() != null) {
+                return alarmMgr.getNextAlarmClock().toString();
+            }
+        }
+
+        return  "INACTIVA";
     }
 
 }
