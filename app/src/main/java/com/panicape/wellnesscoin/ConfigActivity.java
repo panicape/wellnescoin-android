@@ -108,7 +108,6 @@ public class ConfigActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
