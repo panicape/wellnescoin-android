@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="Estado de notificación de Pausa Activa"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
                 <ImageView android:paddingLeft="50dp"
                     android:id="@+id/imgPausaStatus"
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="Hacer Pausa activa"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
                 <ImageView
                     android:id="@+id/imgPausaDesc" android:paddingLeft="30dp"
@@ -109,13 +109,14 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:padding="8dp">
+
                 <TextView
                     android:id="@+id/opt3Title"
                     android:layout_width="150dp"
                     android:layout_height="63dp"
                     android:layout_marginStart="5dp"
                     android:text="Tablas de compensación"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
                 <ImageView
                     android:id="@+id/imgPausaDesc3" android:paddingLeft="30dp"
@@ -149,7 +150,7 @@
                     android:layout_height="63dp"
                     android:layout_marginStart="5dp"
                     android:text="@string/menu_marketplace"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
                 <ImageView
                     android:id="@+id/imgPausaDesc4" android:paddingLeft="50dp"
