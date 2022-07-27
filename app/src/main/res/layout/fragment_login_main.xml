@@ -83,7 +83,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="Hacer Pausa activa"
+                    android:text="Hacer Pausa Activa"
                     android:textSize="16sp"
                     android:textStyle="bold" />
                 <ImageView

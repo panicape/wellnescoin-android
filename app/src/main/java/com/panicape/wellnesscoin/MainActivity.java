@@ -89,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -97,85 +104,74 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem loginItem = menu.findItem(R.id.action_login);
-        MenuItem helpItem =  menu.findItem(R.id.action_info);
-        MenuItem settingsItem =  menu.findItem(R.id.action_settings);
-        MenuItem profileItem = menu.findItem(R.id.action_profile);
-        MenuItem webItem = menu.findItem(R.id.action_web);
-        MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem helpStatusItem = menu.findItem(R.id.action_help_status);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem backItem = menu.findItem(R.id.action_back);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem infoItem = menu.findItem(R.id.action_info);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem configItem = menu.findItem(R.id.action_settings);
+
         MenuItem nextItem = menu.findItem(R.id.action_next);
 
-        nextItem.setVisible(false);
-
-        helpItem.setVisible(true);
+        backItem.setVisible(true);
         webItem.setVisible(true);
         exitItem.setVisible(true);
 
-        loginItem.setVisible(false);
-        backItem.setVisible(false);
-        mainItem.setVisible(false);
         logoffItem.setVisible(false);
-        settingsItem.setVisible(false);
-        profileItem.setVisible(false);
+        helpStatusItem.setVisible(false);
+        nextItem.setVisible(false);
+        loginItem.setVisible(false);
+        mainItem.setVisible(false);
+        infoItem.setVisible(false);
+        configItem.setVisible(false);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            profileItem.setVisible(false);
+            logoffItem.setVisible(false);
+        } else {
+            profileItem.setVisible(true);
+            logoffItem.setVisible(true);
+        }
 
         return true;
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        boolean response = false;
 
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent settingsIntent = new Intent(this, ConfigActivity.class);
-                startActivity(settingsIntent);
-                return true;
+            case R.id.action_profile:
+                navController.navigate(R.id.nav_gallery);
 
-            case  R.id.action_info:
-                Intent infoIntent = new Intent(this, HelpMainActivity.class);
-                startActivity(infoIntent);
-                return true;
-
-            case R.id.action_web:
-                Intent webIntent = new Intent(this, WebActivity.class);
-                startActivity(webIntent);
-                return true;
-
-            case R.id.action_exit:
-                FirebaseAuth.getInstance().signOut();
-                finish();
-                return true;
+                response = true;
+                break;
 
             case R.id.action_logoff:
                 FirebaseAuth.getInstance().signOut();
-                Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);
-                navController.navigate(R.id.login);
+                navController.navigate(R.id.nav_login);
 
-                return true;
+                response = true;
+            case R.id.action_exit:
+                FirebaseAuth.getInstance().signOut();
+                navController.navigate(R.id.nav_login);
 
-            case R.id.action_profile:
-                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    navController.navigate(R.id.nav_gallery);
-                } else {
-                    Toast.makeText(this,
-                            "No se ha encontrado usuario conectado",
-                            Toast.LENGTH_SHORT).show();
-                }
+                response = true;
+                break;
+            case R.id.action_web:
+                Intent webIntent = new Intent(this, WebActivity.class);
+                startActivity(webIntent);
 
-                return true;
+                response = true;
+                break;
+
         }
-        return super.onOptionsItemSelected(item);
+
+        return response;
     }
 
     @Override
@@ -191,18 +187,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_login_main:
                 Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);
                 FirebaseAuth.getInstance().signOut();
-                finishAfterTransition();
                 navController.navigate(R.id.action_login);
 
                 break;
-            case R.id.nav_marketplace:
-                navController.navigate(R.id.nav_marketplace);
 
-                break;
-            case R.id.nav_wallet:
-                navController.navigate(R.id.nav_wallet);
-
-                break;
 
             default:
                 FirebaseAuth.getInstance().signOut();
@@ -213,12 +201,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        if (FirebaseAuth.getInstance().getCurrentUser()!= null) {
-            FirebaseAuth.getInstance().signOut();
-        }
-
-        super.onDestroy();
-    }
 }

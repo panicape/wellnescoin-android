@@ -198,7 +198,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem loginItem = menu.findItem(R.id.action_login);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
-        MenuItem helStatusItem = menu.findItem(R.id.action_help_status);
+        MenuItem helpStatusItem = menu.findItem(R.id.action_help_status);
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem backItem = menu.findItem(R.id.action_back);
         MenuItem profileItem = menu.findItem(R.id.action_profile);
@@ -213,7 +213,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         exitItem.setVisible(true);
 
         logoffItem.setVisible(false);
-        helStatusItem.setVisible(false);
+        helpStatusItem.setVisible(false);
         nextItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
@@ -233,8 +233,8 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         boolean response = false;
-
         Intent mainIntent = new Intent(this, MainActivity.class);
+
         switch (item.getItemId()) {
             case R.id.action_back:
                 if (FirebaseAuth.getInstance().getCurrentUser() == null) {

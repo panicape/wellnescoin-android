@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.panicape.wellnesscoin.PausasMainActivity;
 import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentLoginMainBinding;
@@ -42,6 +44,12 @@ public class LoginMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentLoginMainBinding.inflate(inflater, container, false);
+
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            Toast.makeText(binding.getRoot().getContext(), "Bienvenido/a "
+                    + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+        }
+
         setHasOptionsMenu(true);
         return binding.getRoot();
     }
@@ -92,22 +100,25 @@ public class LoginMainFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         MenuItem loginItem = menu.findItem(R.id.action_login);
-        MenuItem helpItem =  menu.findItem(R.id.action_info);
-        MenuItem settingsItem =  menu.findItem(R.id.action_settings);
-        MenuItem profileItem = menu.findItem(R.id.action_profile);
-        MenuItem webItem = menu.findItem(R.id.action_web);
-        MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem helpStatusItem = menu.findItem(R.id.action_help_status);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem backItem = menu.findItem(R.id.action_back);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem infoItem = menu.findItem(R.id.action_info);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem settingsItem = menu.findItem(R.id.action_settings);
 
         exitItem.setVisible(true);
-        settingsItem.setVisible(true);
         logoffItem.setVisible(true);
         profileItem.setVisible(true);
 
-        helpItem.setVisible(false);
+        backItem.setVisible(false);
+        helpStatusItem.setVisible(false);
+        settingsItem.setVisible(false);
+        infoItem.setVisible(false);
         webItem.setVisible(false);
-
         loginItem.setVisible(false);
         mainItem.setVisible(false);
     }

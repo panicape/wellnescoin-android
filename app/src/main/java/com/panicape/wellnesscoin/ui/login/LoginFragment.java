@@ -90,10 +90,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            showLoginMsg("Bienvenido/a");
-
                             loadingProgressBar.setVisibility(View.INVISIBLE);
-
                             Navigation.findNavController(v).navigate(R.id.login_home_frag);
                         } else {
                             showLoginMsg("Credenciales erroneas");
