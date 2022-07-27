@@ -58,10 +58,11 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         infographicMain = (ImageView) findViewById(R.id.infographicLogin);
         infographicMain.setOnTouchListener(this);
 
-
-        Toast.makeText(this,
-                "User: "+FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                Toast.LENGTH_LONG).show();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Toast.makeText(this,
+                    "User: "+FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
