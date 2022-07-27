@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,11 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
         infographicMain = (ImageView) findViewById(R.id.infographicLogin);
         infographicMain.setOnTouchListener(this);
+
+
+        Toast.makeText(this,
+                "User: "+FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -201,14 +207,14 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
         MenuItem nextItem = menu.findItem(R.id.action_next);
-        nextItem.setVisible(false);
 
         backItem.setVisible(true);
-        helStatusItem.setVisible(true);
-        exitItem.setVisible(true);
-        logoffItem.setVisible(false);
         webItem.setVisible(true);
+        exitItem.setVisible(true);
 
+        logoffItem.setVisible(false);
+        helStatusItem.setVisible(false);
+        nextItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         infoItem.setVisible(false);
@@ -250,9 +256,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
                 response = true;
                 break;
             case R.id.action_exit:
-                if (FirebaseAuth.getInstance().getCurrentUser()!= null) {
-                    FirebaseAuth.getInstance().signOut();
-                }
                 mainIntent.putExtra("frag","login");
 
                 finishAfterTransition();
@@ -260,16 +263,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
                 response = true;
                 break;
-            case R.id.action_help_status:
-
-            //case R.id.action_next:
-                Intent nextIntent = new Intent(this, Pausa_help_activity.class);
-                finishAfterTransition();
-                startActivity(nextIntent);
-
-                response =true;
-                break;
-
         }
 
         return response;
@@ -289,4 +282,8 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         startActivity(mainIntent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

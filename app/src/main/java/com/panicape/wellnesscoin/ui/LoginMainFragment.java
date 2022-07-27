@@ -70,14 +70,14 @@ public class LoginMainFragment extends Fragment {
         pausaStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_login_home_to_nav_pausas_status);
+                Navigation.findNavController(v).navigate(R.id.nav_pausas_status);
             }
         });
 
         marketplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_nav_login_home_to_nav_marketplace);
+                Navigation.findNavController(v).navigate(R.id.nav_marketplace);
             }
         });
 
@@ -88,7 +88,6 @@ public class LoginMainFragment extends Fragment {
             }
         });
     }
-
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
@@ -113,4 +112,10 @@ public class LoginMainFragment extends Fragment {
         mainItem.setVisible(false);
     }
 
+    @Override
+    public void onDestroyView() {
+        binding = null;
+
+        super.onDestroyView();
+    }
 }

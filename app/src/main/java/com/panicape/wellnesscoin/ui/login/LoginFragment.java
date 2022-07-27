@@ -119,6 +119,9 @@ public class LoginFragment extends Fragment {
         if (loginViewModel != null) {
             loginViewModel = null;
         }
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseAuth.getInstance().signOut();
+        }
     }
 
 }

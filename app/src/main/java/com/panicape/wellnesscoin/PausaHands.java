@@ -60,7 +60,7 @@ public class PausaHands extends AppCompatActivity {
     /**
      * Saving folder root
      */
-    private final String rootFolder = "bienestarAPP/";
+    private final String rootFolder = "WelfareCoin/";
 
     /**
      * Current Photo path
@@ -122,40 +122,6 @@ public class PausaHands extends AppCompatActivity {
     // Methods
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (firebaseUser == null) {
-            Toast.makeText(this, "No se ha detectado usuario conectado", Toast.LENGTH_SHORT);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        } else {
-            Log.i("PausaHands: ", "CURRENT=" + firebaseUser.getEmail());
-
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    snapshot.child("Users").getChildren().forEach(element -> {
-                        if (element.child(element.getKey()).child("mail").exists() &&
-                                element.child(element.getKey()).child("mail").equals(firebaseUser.getEmail())) {
-                            Log.i("PausaHands: ", "USER FOUND: " + element.getKey());
-                            username = element.getKey();
-                        }
-                    });
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("PausaHands: ", "Pausa Cancelada. Error="+error.getMessage());
-                }
-            });
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pausa_hands);
@@ -180,6 +146,10 @@ public class PausaHands extends AppCompatActivity {
                     videoView.start();
                     videoUri = intent1.getData();
                     videoView.setVideoURI(videoUri);
+
+                    if (videoView.getVisibility() == View.GONE) {
+                        videoView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
@@ -253,8 +223,9 @@ public class PausaHands extends AppCompatActivity {
                                                     Intent pausasHomeIntent =
                                                             new Intent(PausaHands.this,
                                                             PausasMainActivity.class);
-                                                    p.setVisibility(View.GONE);
+
                                                     finishAfterTransition();
+                                                    p.setVisibility(View.GONE);
                                                     startActivity(pausasHomeIntent);
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
@@ -289,7 +260,7 @@ public class PausaHands extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(),
                                                 "Error: " + e.getMessage(),
                                                 Toast.LENGTH_SHORT).show();
-                                        isVideoSaved=true;
+                                        isVideoSaved = true;
                                     }
                                 });
                     } else {
@@ -310,21 +281,18 @@ public class PausaHands extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 Calendar calendar = Calendar.getInstance();
                                 int hour = 0;
-                                hour = calendar.get(Calendar.HOUR_OF_DAY);
 
+                                hour = calendar.get(Calendar.HOUR_OF_DAY);
                                 hour += 2;
 
-                                    setAlarm(v.getContext(), calendar);
-
-                                    Toast.makeText(v.getContext(),
-                                            "Alarma activada: "
-                                                    + calendar.get(Calendar.YEAR)+"-"+
-                                                    calendar.get(Calendar.MONTH)+"-"+
-                                                    calendar.get(Calendar.DAY_OF_MONTH)+" "+
-                                                    (hour) + ":" +
-                                                    calendar.get(Calendar.MINUTE),
+                                setAlarm(v.getContext(), calendar);
+                                Toast.makeText(v.getContext(),
+                                        "Alarma activada: "
+                                                + calendar.get(Calendar.YEAR)+"-"
+                                                + calendar.get(Calendar.MONTH)+"-"
+                                                + calendar.get(Calendar.DAY_OF_MONTH)+" "
+                                                + (hour) + ":" + calendar.get(Calendar.MINUTE),
                                             Toast.LENGTH_LONG).show();
-
                             }
                         });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -342,8 +310,41 @@ public class PausaHands extends AppCompatActivity {
         p.setVisibility(View.GONE);
     }
 
-    public void setAlarm(Context ctx, Calendar calendar) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        if (firebaseUser == null) {
+            Toast.makeText(this, "No se ha detectado usuario conectado", Toast.LENGTH_SHORT);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            Log.i("PausaHands: ", "CURRENT=" + firebaseUser.getEmail());
+
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    snapshot.child("Users").getChildren().forEach(element -> {
+                        if (element.child(element.getKey()).child("mail").exists() &&
+                                element.child(element.getKey()).child("mail").equals(firebaseUser.getEmail())) {
+                            Log.i("PausaHands: ", "USER FOUND: " + element.getKey());
+                            username = element.getKey();
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("PausaHands: ", "Pausa No fue guardada. Error=" + error.getMessage());
+                }
+            });
+        }
+    }
+
+    public void setAlarm(Context ctx, Calendar calendar) {
         Intent alarmIntent = new Intent(ctx, AlarmReceiver.class);
         PendingIntent pendingIntent;
         pendingIntent = PendingIntent.getBroadcast(ctx, alarmId, alarmIntent,
@@ -524,5 +525,15 @@ public class PausaHands extends AppCompatActivity {
             finishAfterTransition();
             startActivity(backIntent);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.videoUri = null;
+        this.isVideoSaved = false;
+        this.videoView.setVideoURI(null);
+        this.videoView.setVisibility(View.GONE);
+
+        super.onDestroy();
     }
 }

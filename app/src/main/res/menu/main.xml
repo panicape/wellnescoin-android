@@ -6,7 +6,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_back"
-        android:title="Atras" />
+        android:title="Atrás" />
     <item
         android:id="@+id/action_next"
         android:title="Siguiente" />

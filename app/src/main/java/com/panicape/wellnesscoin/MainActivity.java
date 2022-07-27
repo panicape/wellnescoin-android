@@ -212,4 +212,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        if (FirebaseAuth.getInstance().getCurrentUser()!= null) {
+            FirebaseAuth.getInstance().signOut();
+        }
+
+        super.onDestroy();
+    }
 }
