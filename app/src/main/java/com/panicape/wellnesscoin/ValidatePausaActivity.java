@@ -30,22 +30,35 @@ public class ValidatePausaActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem loginItem = menu.findItem(R.id.action_login);
-        MenuItem profileItem = menu.findItem(R.id.action_profile);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
-        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem nextItem = menu.findItem(R.id.action_next);
 
-        nextItem.setVisible(false);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem backItem = menu.findItem(R.id.action_back);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem infoItem = menu.findItem(R.id.action_info);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem configItem = menu.findItem(R.id.action_settings);
+        MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-            loginItem.setVisible(true);
+        exitItem.setVisible(true);
+        webItem.setVisible(true);
+        backItem.setVisible(true);
+        infoItem.setVisible(true);
+
+        nextItem.setVisible(false);
+        pausaHelpItem.setVisible(false);
+        loginItem.setVisible(false);
+        mainItem.setVisible(false);
+        configItem.setVisible(false);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);
             logoffItem.setVisible(false);
         } else {
-            loginItem.setVisible(false);
             profileItem.setVisible(true);
             logoffItem.setVisible(true);
-            mainItem.setVisible(true);
         }
 
         return true;

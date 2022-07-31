@@ -18,6 +18,11 @@
         android:orderInCategory="100"
         android:title="@string/information"
         app:showAsAction="never"  />
+    <item
+        android:id="@+id/action_pausa_help"
+        android:orderInCategory="100"
+        android:title="Ayuda Pausa"
+        app:showAsAction="never"  />
 
     <item
         android:id="@+id/action_settings"

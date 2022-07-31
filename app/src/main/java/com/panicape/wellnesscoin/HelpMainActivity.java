@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,8 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HelpMainActivity extends AppCompatActivity implements View.OnTouchListener {
 
     private ImageView infographicMain;
-
-    private ImageButton nexthelpBtn;
 
     private static final String TAG = "HELP ACTIVITY";
     private static final float MIN_ZOOM = 1f, MAX_ZOOM = 1f;
@@ -66,9 +63,9 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        ImageView view = (ImageView) v;
-        view.setScaleType(ImageView.ScaleType.MATRIX);
+    public boolean onTouch(View view, MotionEvent event) {
+        ImageView imageView = (ImageView) view;
+        imageView.setScaleType(ImageView.ScaleType.MATRIX);
         float scale;
 
         dumpEvent(event);
@@ -76,7 +73,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
 
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:   // first finger down only
-                matrix.set(view.getImageMatrix());
+                matrix.set(imageView.getImageMatrix());
                 savedMatrix.set(matrix);
                 start.set(event.getX(), event.getY());
                 Log.d(TAG, "mode=DRAG"); // write to LogCat
@@ -126,7 +123,7 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         }
 
         // display the transformation on screen
-        view.setImageMatrix(matrix);
+        imageView.setImageMatrix(matrix);
 
         // indicate event was handled
         return true;
@@ -182,9 +179,6 @@ public class HelpMainActivity extends AppCompatActivity implements View.OnTouchL
         sb.append("]");
         Log.d("Touch Events ---------", sb.toString());
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.panicape.wellnesscoin.R;
 import com.panicape.wellnesscoin.databinding.FragmentPausasStatusBinding;
 import com.panicape.wellnesscoin.tools.AlarmReceiver;
@@ -69,7 +70,6 @@ public class PausasStatusFragment extends Fragment {
         intervalET = binding.alarmIntervalET;
 
         alarmView = binding.alarmView;
-
 
         String alarmStatus = checkAlarmStatus(root.getContext());
         if (alarmStatus!=null) {
@@ -148,24 +148,36 @@ public class PausasStatusFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         MenuItem loginItem = menu.findItem(R.id.action_login);
-        MenuItem helpItem =  menu.findItem(R.id.action_info);
-        MenuItem settingsItem =  menu.findItem(R.id.action_settings);
-        MenuItem profileItem = menu.findItem(R.id.action_profile);
-        MenuItem webItem = menu.findItem(R.id.action_web);
-        MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
+        MenuItem helStatusItem = menu.findItem(R.id.action_help_status);
+        MenuItem mainItem = menu.findItem(R.id.action_main);
+        MenuItem backItem = menu.findItem(R.id.action_back);
+        MenuItem profileItem = menu.findItem(R.id.action_profile);
+        MenuItem infoItem = menu.findItem(R.id.action_info);
+        MenuItem webItem = menu.findItem(R.id.action_web);
+        MenuItem configItem = menu.findItem(R.id.action_settings);
 
+        MenuItem nextItem = menu.findItem(R.id.action_next);
+
+        backItem.setVisible(true);
+        infoItem.setVisible(true);
+        webItem.setVisible(true);
         exitItem.setVisible(true);
-        settingsItem.setVisible(true);
-        logoffItem.setVisible(true);
-        profileItem.setVisible(true);
-        mainItem.setVisible(true);
 
-        helpItem.setVisible(false);
-        webItem.setVisible(false);
-
+        helStatusItem.setVisible(false);
+        nextItem.setVisible(false);
         loginItem.setVisible(false);
+        mainItem.setVisible(false);
+        configItem.setVisible(false);
+
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+            profileItem.setVisible(false);
+            logoffItem.setVisible(false);
+        } else {
+            profileItem.setVisible(true);
+            logoffItem.setVisible(true);
+        }
     }
 
 

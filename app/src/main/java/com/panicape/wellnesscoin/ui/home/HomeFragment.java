@@ -8,7 +8,6 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.ScaleAnimation;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
@@ -27,13 +26,12 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    private Button loginBtn;
     private ImageView infographics;
     private ScrollView scrollView;
 
     private float mScale = 1f;
     private ScaleGestureDetector scaleGestureDetector;
-    GestureDetector gestureDetector;
+    private GestureDetector gestureDetector;
 
 
     // Methods

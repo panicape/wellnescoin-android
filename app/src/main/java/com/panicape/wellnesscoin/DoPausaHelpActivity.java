@@ -190,13 +190,15 @@ public class DoPausaHelpActivity extends AppCompatActivity implements View.OnTou
         MenuItem infoItem = menu.findItem(R.id.action_info);
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
+        MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
 
-        nextItem.setVisible(true);
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);
         infoItem.setVisible(true);
 
+        nextItem.setVisible(false);
+        pausaHelpItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         configItem.setVisible(false);

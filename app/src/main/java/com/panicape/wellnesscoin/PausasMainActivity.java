@@ -68,11 +68,13 @@ public class PausasMainActivity extends AppCompatActivity {
         MenuItem infoItem = menu.findItem(R.id.action_info);
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
+        MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
 
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);
         infoItem.setVisible(true);
+        pausaHelpItem.setVisible(true);
 
         nextItem.setVisible(false);
         loginItem.setVisible(false);

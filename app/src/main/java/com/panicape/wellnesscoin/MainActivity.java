@@ -189,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
 
-
             default:
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);

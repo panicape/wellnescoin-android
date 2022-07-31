@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,13 +47,15 @@ public class Pausa_help_activity extends AppCompatActivity {
         MenuItem infoItem = menu.findItem(R.id.action_info);
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
+        MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
 
-        nextItem.setVisible(true);
+        pausaHelpItem.setVisible(false);
+        infoItem.setVisible(true);
         exitItem.setVisible(true);
         webItem.setVisible(true);
-        backItem.setVisible(true);
-        infoItem.setVisible(true);
 
+        backItem.setVisible(false);
+        nextItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         configItem.setVisible(false);
@@ -69,30 +72,39 @@ public class Pausa_help_activity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_back:
-                Intent intent = new Intent(this, MainActivity.class);
-                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                    intent.putExtra("frag", "login");
-                } else {
-                    intent.putExtra("frag", "home");
-                }
+        // infoItem.setVisible(true);
+        // exitItem.setVisible(true);
+        // webItem.setVisible(true);
+        boolean response = false;
 
+        switch (item.getItemId()) {
+            case R.id.action_info:
+                Intent intent = new Intent(this, HelpMainActivity.class);
                 finishAfterTransition();
                 startActivity(intent);
+
+                response = true;
+                break;
+            case R.id.action_web:
+                Intent webIntent = new Intent(this, WebActivity.class);
+                finishAfterTransition();
+                startActivity(webIntent);
+
+                response = true;
                 break;
 
-            case R.id.action_next:
-                Intent doPausaHelpIntent = new Intent(this, DoPausaHelpActivity.class);
-                finishAfterTransition();
-                startActivity(doPausaHelpIntent);
-                break;
+            case R.id.action_profile:
+                if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
+                    Intent mainIntent= new Intent(this, MainActivity.class);
+                    mainIntent.putExtra("frag", "profile");
+                    startActivity(mainIntent);
+                } else {
+                    Toast.makeText(this, "No se ha encontrado usuario conectado",
+                            Toast.LENGTH_LONG);
+                }
 
-            case R.id.action_settings:
-                Intent configIntent = new Intent(this, ConfigActivity.class);
-                finishAfterTransition();
-                startActivity(configIntent);
-                return true;
+                response = true;
+                break;
 
             case R.id.action_exit:
                 MenuItem mainMenuItem =  findViewById(R.id.action_main);
@@ -109,10 +121,13 @@ public class Pausa_help_activity extends AppCompatActivity {
 
                 FirebaseAuth.getInstance().signOut();
                 System.exit(1);
-                return true;
+
+                response = true;
+
+                break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return response;
     }
 
     @Override

@@ -48,12 +48,14 @@ public class ConfigActivity extends AppCompatActivity {
         MenuItem infoItem = menu.findItem(R.id.action_info);
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
+        MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
 
         nextItem.setVisible(false);
         exitItem.setVisible(true);
         webItem.setVisible(true);
         backItem.setVisible(true);
 
+        pausaHelpItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         logoffItem.setVisible(false);

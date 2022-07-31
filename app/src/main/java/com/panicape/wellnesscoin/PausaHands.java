@@ -386,6 +386,7 @@ public class PausaHands extends AppCompatActivity {
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem backItem = menu.findItem(R.id.action_back);
         MenuItem nextItem = menu.findItem(R.id.action_next);
+        MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
 
         backItem.setVisible(true);
         webItem.setVisible(true);
@@ -393,6 +394,7 @@ public class PausaHands extends AppCompatActivity {
         profileItem.setVisible(true);
         exitItem.setVisible(true);
 
+        pausaHelpItem.setVisible(false);
         mainItem.setVisible(false);
         nextItem.setVisible(false);
         infoItem.setVisible(false);

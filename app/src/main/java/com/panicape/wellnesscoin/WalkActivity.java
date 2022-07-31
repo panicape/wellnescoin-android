@@ -159,6 +159,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         MenuItem infoItem = menu.findItem(R.id.action_info);
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
+        MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
 
         exitItem.setVisible(true);
         webItem.setVisible(true);
@@ -166,11 +167,10 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         infoItem.setVisible(true);
 
         nextItem.setVisible(false);
+        pausaHelpItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
-        logoffItem.setVisible(false);
         configItem.setVisible(false);
-        profileItem.setVisible(false);
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);

@@ -11,7 +11,6 @@ import android.webkit.WebView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.panicape.wellnesscoin.R;
@@ -24,19 +23,18 @@ import com.panicape.wellnesscoin.databinding.MarketplaceFragmentBinding;
  */
 public class MarketplaceFragment extends Fragment {
 
-    private MarketplaceViewModel mViewModel;
     private MarketplaceFragmentBinding binding;
+
+
+    // Methods
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel =
-                new ViewModelProvider(this).get(MarketplaceViewModel.class);
-        setHasOptionsMenu(true);
-
         binding = MarketplaceFragmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        setHasOptionsMenu(true);
         WebView myWebView = binding.marketplaceView;
         myWebView.loadUrl("https://www.cyclos.org/");
 
