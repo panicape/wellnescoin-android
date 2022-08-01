@@ -32,7 +32,7 @@ public class ValidatePausaActivity extends AppCompatActivity {
         MenuItem loginItem = menu.findItem(R.id.action_login);
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
-        MenuItem nextItem = menu.findItem(R.id.action_next);
+        MenuItem pausaStatusItem = menu.findItem(R.id.action_pausa_status);
 
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem backItem = menu.findItem(R.id.action_back);
@@ -47,7 +47,7 @@ public class ValidatePausaActivity extends AppCompatActivity {
         backItem.setVisible(true);
         infoItem.setVisible(true);
 
-        nextItem.setVisible(false);
+        pausaStatusItem.setVisible(false);
         pausaHelpItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);

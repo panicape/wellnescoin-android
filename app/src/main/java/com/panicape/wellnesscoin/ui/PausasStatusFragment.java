@@ -158,7 +158,7 @@ public class PausasStatusFragment extends Fragment {
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
-        MenuItem nextItem = menu.findItem(R.id.action_next);
+        MenuItem pausaStatus = menu.findItem(R.id.action_pausa_status);
 
         backItem.setVisible(true);
         infoItem.setVisible(true);
@@ -166,7 +166,7 @@ public class PausasStatusFragment extends Fragment {
         exitItem.setVisible(true);
 
         helStatusItem.setVisible(false);
-        nextItem.setVisible(false);
+        pausaStatus.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         configItem.setVisible(false);

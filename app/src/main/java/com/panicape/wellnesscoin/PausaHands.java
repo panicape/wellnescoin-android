@@ -385,7 +385,7 @@ public class PausaHands extends AppCompatActivity {
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem backItem = menu.findItem(R.id.action_back);
-        MenuItem nextItem = menu.findItem(R.id.action_next);
+        MenuItem pausaStatusItem = menu.findItem(R.id.action_pausa_status);
         MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
 
         backItem.setVisible(true);
@@ -396,7 +396,7 @@ public class PausaHands extends AppCompatActivity {
 
         pausaHelpItem.setVisible(false);
         mainItem.setVisible(false);
-        nextItem.setVisible(false);
+        pausaStatusItem.setVisible(false);
         infoItem.setVisible(false);
         loginItem.setVisible(false);
         settingsItem.setVisible(false);

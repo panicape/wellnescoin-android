@@ -8,8 +8,8 @@
         android:id="@+id/action_back"
         android:title="Atrás" />
     <item
-        android:id="@+id/action_next"
-        android:title="Siguiente" />
+        android:id="@+id/action_pausa_status"
+        android:title="Notificación de pausas" />
     <item
         android:id="@+id/action_help_status"
         android:title="Ayuda notificación Pausa" />

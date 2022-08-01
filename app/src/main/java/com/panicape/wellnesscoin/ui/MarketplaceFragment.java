@@ -54,7 +54,7 @@ public class MarketplaceFragment extends Fragment {
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
-        MenuItem nextItem = menu.findItem(R.id.action_next);
+        MenuItem pausaStatusItem = menu.findItem(R.id.action_pausa_status);
 
         backItem.setVisible(true);
         webItem.setVisible(true);
@@ -62,7 +62,7 @@ public class MarketplaceFragment extends Fragment {
 
         logoffItem.setVisible(false);
         helStatusItem.setVisible(false);
-        nextItem.setVisible(false);
+        pausaStatusItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         infoItem.setVisible(false);

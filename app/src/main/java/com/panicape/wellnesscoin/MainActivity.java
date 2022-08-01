@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
             //ask for permission
             requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 0);
         }
@@ -82,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
                     case "marketplace":
                         navController.navigate(R.id.nav_marketplace);
                         break;
+                    case "pausa_status":
+                        navController.navigate(R.id.nav_pausas_status);
+                        break;
                 }
             }
         }
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem webItem = menu.findItem(R.id.action_web);
         MenuItem configItem = menu.findItem(R.id.action_settings);
 
-        MenuItem nextItem = menu.findItem(R.id.action_next);
+        MenuItem pausaStatusItem = menu.findItem(R.id.action_pausa_status);
 
         backItem.setVisible(true);
         webItem.setVisible(true);
@@ -122,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         logoffItem.setVisible(false);
         helpStatusItem.setVisible(false);
-        nextItem.setVisible(false);
+        pausaStatusItem.setVisible(false);
         loginItem.setVisible(false);
         mainItem.setVisible(false);
         infoItem.setVisible(false);
@@ -167,6 +171,13 @@ public class MainActivity extends AppCompatActivity {
                 response = true;
                 break;
 
+            case R.id.action_pausa_help:
+                navController.navigate(R.id.nav_login);
+                break;
+
+            case R.id.action_pausa_status:
+                navController.navigate(R.id.nav_pausas_status);
+                break;
         }
 
         return response;
@@ -188,12 +199,15 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.action_login);
 
                 break;
+            case R.id.nav_gallery:
+
+            case R.id.nav_marketplace:
+
+            case R.id.nav_wallet:
+                navController.navigate(R.id.action_main);
+                break;
 
             default:
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(this, "Sesión Cerrada", Toast.LENGTH_SHORT);
-                navController.navigate(R.id.nav_login);
-
                 break;
         }
     }
