@@ -47,7 +47,8 @@ public class LoginMainFragment extends Fragment {
 
         if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
             Toast.makeText(binding.getRoot().getContext(), "Bienvenido/a "
-                    + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+                    + FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+                    Toast.LENGTH_SHORT).show();
         }
 
         setHasOptionsMenu(true);
@@ -66,9 +67,9 @@ public class LoginMainFragment extends Fragment {
         doPausas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(view.getContext(), "En construcción", Toast.LENGTH_SHORT).show();
-                //Intent doPausaIntent = new Intent(getActivity(), PausaHands.class);
-                //startActivity(doPausaIntent);
+                // Toast.makeText(view.getContext(), "En construcción", Toast.LENGTH_SHORT).show();
+                // Intent doPausaIntent = new Intent(getActivity(), PausaHands.class);
+                // startActivity(doPausaIntent);
 
                 Intent doPausaIntent = new Intent(getActivity(), PausasMainActivity.class);
                 startActivity(doPausaIntent);

@@ -90,14 +90,14 @@ public class ValidatePausasMain extends AppCompatActivity {
                 Intent infoIntent = new Intent(this, HelpMainActivity.class);
                 finishAfterTransition();
                 startActivity(infoIntent);
-                response= true;
+                response = true;
                 break;
 
             case R.id.action_web:
                 Intent webIntent = new Intent(this, WebActivity.class);
                 finishAfterTransition();
                 startActivity(webIntent);
-                response= true;
+                response = true;
                 break;
 
             case R.id.action_exit:
@@ -112,9 +112,10 @@ public class ValidatePausasMain extends AppCompatActivity {
                 profileItem.setVisible(false);
 
                 FirebaseAuth.getInstance().signOut();
-                System.exit(0);
+                response = true;
 
-                response= true;
+                this.finishAffinity();
+
                 break;
 
             case R.id.action_profile:
@@ -126,9 +127,10 @@ public class ValidatePausasMain extends AppCompatActivity {
                     finishAfterTransition();
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
+                    Toast.makeText(this,
+                            "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
                 }
-                response= true;
+                response = true;
                 break;
         }
 

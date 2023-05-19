@@ -88,7 +88,7 @@ public class ValidatePausaActivity extends AppCompatActivity {
 
                 finishAfterTransition();
                 startActivity(webIntent);
-                response= true;
+                response = true;
 
                 break;
 
@@ -104,7 +104,7 @@ public class ValidatePausaActivity extends AppCompatActivity {
                 profileItem.setVisible(false);
 
                 FirebaseAuth.getInstance().signOut();
-                System.exit(0);
+                this.finishAffinity();
 
                 response= true;
                 break;
@@ -116,10 +116,11 @@ public class ValidatePausaActivity extends AppCompatActivity {
                     finishAfterTransition();
                     startActivity(intent);
                 } else {
-                    Toast.makeText(this, "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
+                    Toast.makeText(this,
+                            "No se ha encontrado usuario conectado", Toast.LENGTH_SHORT);
                 }
 
-                response= true;
+                response = true;
                 break;
         }
 
@@ -131,7 +132,6 @@ public class ValidatePausaActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PausasMainActivity.class);
 
         finishAfterTransition();
-
         startActivity(intent);
     }
 

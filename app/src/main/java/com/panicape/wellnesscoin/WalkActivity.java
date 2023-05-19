@@ -70,7 +70,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View view) {
                 // Iniciar cuenta atras
                 startChronometer();
-
             }
         });
     }
@@ -103,7 +102,8 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
                 String currentDateTime = dateObj.format(myFormatObj);
                 pausaRegistryDto.setDateCreation(currentDateTime);
 
-                Toast.makeText(WalkActivity.this, "Finalizó su pausa activa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WalkActivity.this,
+                        "Finalizó su pausa activa", Toast.LENGTH_SHORT).show();
 
                 stepCounter.getText();
             }
@@ -219,7 +219,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
                 finishAfterTransition();
                 startActivity(mainIntent);
 
-                response= true;
+                response = true;
                 break;
 
             case R.id.action_profile:

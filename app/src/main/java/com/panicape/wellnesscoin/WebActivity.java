@@ -102,7 +102,7 @@ public class WebActivity extends AppCompatActivity {
                 break;
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
-                System.exit(0);
+                this.finishAffinity();
 
                 response = true;
                 break;

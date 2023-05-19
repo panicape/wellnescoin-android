@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.nav_login:
                 Toast.makeText(this, "Hasta pronto", Toast.LENGTH_SHORT);
-                finish();
+                this.finishAffinity();
 
                 break;
             case R.id.nav_login_main:

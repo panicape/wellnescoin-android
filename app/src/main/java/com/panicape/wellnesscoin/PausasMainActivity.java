@@ -132,8 +132,7 @@ public class PausasMainActivity extends AppCompatActivity {
 
                 finishAfterTransition();
                 response = true;
-
-                System.exit(0);
+                this.finishAffinity();
                 return true;
         }
 

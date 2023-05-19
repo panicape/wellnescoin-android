@@ -86,7 +86,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        passwordEditText.getText().toString()).addOnCompleteListener(
+                                new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {

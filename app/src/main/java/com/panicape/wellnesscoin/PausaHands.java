@@ -360,11 +360,14 @@ public class PausaHands extends AppCompatActivity {
 
     public boolean validarPermisos() {
         return ContextCompat.checkSelfPermission(PausaHands.this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(PausaHands.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                        Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(PausaHands.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(PausaHands.this,
                         Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
@@ -424,7 +427,8 @@ public class PausaHands extends AppCompatActivity {
                                 startActivity(backIntent);
                             }
                         });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
@@ -471,7 +475,6 @@ public class PausaHands extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 FirebaseAuth.getInstance().signOut();
-                                finish();
 
                                 finishAfterTransition();
                                 startActivity(logoffIntent);
@@ -480,6 +483,8 @@ public class PausaHands extends AppCompatActivity {
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),
+                                "Continúe con su pausa", Toast.LENGTH_SHORT);
                     }
                 });
 

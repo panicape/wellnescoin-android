@@ -91,7 +91,7 @@ public class ConfigActivity extends AppCompatActivity {
 
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
-                System.exit(0);
+                this.finishAffinity();
                 return true;
 
             case R.id.action_profile:

@@ -107,7 +107,7 @@ public class WalletHelpActivity extends AppCompatActivity {
                 if (FirebaseAuth.getInstance().getCurrentUser()!= null) {
                     FirebaseAuth.getInstance().signOut();
                 }
-                System.exit(0);
+                this.finishAffinity();
 
                 response = true;
                 break;
