@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ public class LoginMainFragment extends Fragment {
     private FragmentLoginMainBinding binding;
 
     private CardView pausaStatus, doPausas, marketplace, wallet;
+
+    MenuItem backItem;
 
 
 
@@ -105,7 +108,7 @@ public class LoginMainFragment extends Fragment {
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem helpStatusItem = menu.findItem(R.id.action_help_status);
         MenuItem mainItem = menu.findItem(R.id.action_main);
-        MenuItem backItem = menu.findItem(R.id.action_back);
+        backItem = menu.findItem(R.id.action_back);
         MenuItem profileItem = menu.findItem(R.id.action_profile);
         MenuItem infoItem = menu.findItem(R.id.action_info);
         MenuItem webItem = menu.findItem(R.id.action_web);
@@ -115,7 +118,10 @@ public class LoginMainFragment extends Fragment {
         logoffItem.setVisible(true);
         profileItem.setVisible(true);
 
-        backItem.setVisible(false);
+        if (backItem.isVisible()) {
+            backItem.setVisible(false);
+        }
+
         helpStatusItem.setVisible(false);
         settingsItem.setVisible(false);
         infoItem.setVisible(false);
@@ -124,10 +130,5 @@ public class LoginMainFragment extends Fragment {
         mainItem.setVisible(false);
     }
 
-    @Override
-    public void onDestroyView() {
-        binding = null;
 
-        super.onDestroyView();
-    }
 }

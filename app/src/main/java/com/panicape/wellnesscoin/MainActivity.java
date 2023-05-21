@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem logoffItem = menu.findItem(R.id.action_logoff);
         MenuItem exitItem = menu.findItem(R.id.action_exit);
         MenuItem helpStatusItem = menu.findItem(R.id.action_help_status);
+        MenuItem pausaHelpItem = menu.findItem(R.id.action_pausa_help);
         MenuItem mainItem = menu.findItem(R.id.action_main);
         MenuItem backItem = menu.findItem(R.id.action_back);
         MenuItem profileItem = menu.findItem(R.id.action_profile);
@@ -120,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem pausaStatusItem = menu.findItem(R.id.action_pausa_status);
 
-        backItem.setVisible(true);
+        backItem.setVisible(false);
+        pausaHelpItem.setVisible(false);
         webItem.setVisible(true);
         exitItem.setVisible(true);
 
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         infoItem.setVisible(false);
         configItem.setVisible(false);
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             profileItem.setVisible(false);
             logoffItem.setVisible(false);
         } else {

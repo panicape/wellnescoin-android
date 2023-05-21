@@ -15,13 +15,13 @@
         android:id="@+id/username"
         android:layout_width="288dp"
         android:layout_height="48dp"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="88dp"
         android:autofillHints=""
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTitleTV" />
 
@@ -29,7 +29,6 @@
         android:id="@+id/password"
         android:layout_width="285dp"
         android:layout_height="49dp"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:autofillHints=""
         android:hint="@string/prompt_password"
@@ -38,6 +37,7 @@
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
@@ -72,9 +72,9 @@
         android:id="@+id/loginLogo"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:layout_marginStart="136dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,11 +82,11 @@
         android:id="@+id/loginTitleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
         android:layout_marginTop="16dp"
         android:text="Welfare Coin"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginLogo" />
 
@@ -94,8 +94,8 @@
         android:id="@+id/logInfoTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="40dp"
         android:text="Información"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTitleTV" />
@@ -104,8 +104,9 @@
         android:id="@+id/logInfoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/social_btn_rounded"
         android:contentDescription="@string/info_title"
         android:src="@android:drawable/ic_menu_send"
         app:layout_constraintStart_toEndOf="@+id/logInfoTV"

@@ -3,6 +3,9 @@ package com.panicape.wellnesscoin.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,6 +43,8 @@ public class LoginFragment extends Fragment {
 
     private ImageButton logInfoBtn;
     private Button loginButton;
+
+    MenuItem backItem;
 
     ProgressBar loadingProgressBar;
 
@@ -111,9 +116,43 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        backItem = menu.findItem(R.id.action_back);
+        if (backItem.isVisible()) {
+            backItem.setVisible(false);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        backItem = menu.findItem(R.id.action_back);
+        if (backItem.isVisible()) {
+            backItem.setVisible(false);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+
         if (loginViewModel != null) {
             loginViewModel = null;
         }
