@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -162,8 +163,11 @@ public class MainActivity extends AppCompatActivity {
                 response = true;
             case R.id.action_exit:
                 FirebaseAuth.getInstance().signOut();
-                navController.navigate(R.id.nav_login);
-
+                if (navController.getCurrentDestination().getId()==R.id.nav_login) {
+                    this.finishAffinity();
+                } else {
+                    navController.navigate(R.id.nav_login);
+                }
                 response = true;
                 break;
             case R.id.action_web:
@@ -180,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_pausa_status:
                 navController.navigate(R.id.nav_pausas_status);
                 break;
+
         }
 
         return response;

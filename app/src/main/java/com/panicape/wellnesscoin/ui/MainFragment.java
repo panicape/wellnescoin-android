@@ -33,8 +33,7 @@ public class MainFragment extends Fragment {
     private MainViewModel mViewModel;
 
     private MainFragmentBinding binding;
-    private ListView pausasLV;
-    private List<String> pausasList;
+
     private Button startBtn;
 
 
@@ -62,12 +61,10 @@ public class MainFragment extends Fragment {
                 startActivity(handsIntent);
             }
         });
-
-        pausasList = new ArrayList<>();
+        List<String> pausasList = new ArrayList<>();
         pausasList.add("Caminar");
         pausasList.add("Manos");
-
-        pausasLV = binding.pausasLV;
+        ListView pausasLV = binding.pausasLV;
         ArrayAdapter adapter = new ArrayAdapter(container.getContext(),
                 android.R.layout.simple_list_item_1, pausasList);
         pausasLV.setAdapter(adapter);

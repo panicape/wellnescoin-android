@@ -26,7 +26,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.panicape.wellnesscoin.HelpMainActivity;
 import com.panicape.wellnesscoin.R;
-import com.panicape.wellnesscoin.databinding.FragmentLoginBinding;
 
 /**
  *
@@ -35,8 +34,9 @@ import com.panicape.wellnesscoin.databinding.FragmentLoginBinding;
  */
 public class LoginFragment extends Fragment {
 
-    private LoginViewModel loginViewModel;
-    private FragmentLoginBinding binding;
+    LoginViewModel loginViewModel;
+
+    com.panicape.wellnesscoin.databinding.FragmentLoginBinding binding;
 
     private EditText usernameEditText;
     private EditText passwordEditText;
@@ -57,7 +57,7 @@ public class LoginFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        binding = com.panicape.wellnesscoin.databinding.FragmentLoginBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }
@@ -127,6 +127,7 @@ public class LoginFragment extends Fragment {
         if (backItem.isVisible()) {
             backItem.setVisible(false);
         }
+
     }
 
     @Override
@@ -137,6 +138,8 @@ public class LoginFragment extends Fragment {
             backItem.setVisible(false);
         }
     }
+
+
 
     @Override
     public void onPause() {
